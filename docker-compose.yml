@@ -2,16 +2,14 @@ version: "3.8"
 services:
   react_app:
     container_name: react
-#    image: react-im
-    build: mobile-layout-manager-front
+    build: mobile-layouts-manager-front
     volumes:
-      - ./mlm-front:/opt/src/app
+      - ./mobile-layouts-manager-front:/opt/src/app
     ports:
       - "3000:3000"
 
   php-fpm:
     container_name: php-fpm
-#    image: php
     build: ./mlm-back
     volumes:
       - ./mlm-back:/var/www/html
@@ -20,7 +18,6 @@ services:
 
   nginx:
     container_name: nginx
-#    build: ./nginx
     image: nginx
     volumes:
       - ./mlm-back:/var/www/html
