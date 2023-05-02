@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./TemplatesPage.css";
-import {Template, MyScreen, Device} from "../../types";
-import {myTemplates} from "../tempConstants";
+import {Template, MyScreen, Device} from "../../../types";
+import {myTemplates} from "../../tempConstants";
 import {Link} from "react-router-dom";
 
 const TemplateViewer = (templ: Template) => {
@@ -29,7 +29,6 @@ const TemplateViewer = (templ: Template) => {
         </div>
     );
 };
-
 
 
 const screenParser = (name: string, device: Device, screen: MyScreen) => {
@@ -81,17 +80,23 @@ function TemplatesPage() {
                 return (
                     <div key={ind} className="templsRow">
                         {TemplateViewer(templRow[0])}
+
                         <div className="templsSepar"/>
-                        {templRow[1] ? TemplateViewer(templRow[1]) : null}
+
+                        {templRow[1]
+                            ? TemplateViewer(templRow[1])
+                            : null
+                        }
+
                         <div className="templsSepar"/>
-                        {templRow[2] ? (
-                            TemplateViewer(templRow[2])
-                        ) : (
-                            <div>
+
+                        {templRow[2]
+                            ? (TemplateViewer(templRow[2]))
+                            : (<div>
                                 <div className="emptyTemp"/>
                                 <div className="twoSepar"/>
-                            </div>
-                        )}
+                            </div>)
+                        }
                     </div>
                 );
             })}

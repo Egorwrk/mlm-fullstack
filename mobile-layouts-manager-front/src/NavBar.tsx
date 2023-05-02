@@ -5,8 +5,8 @@ import { NavLink } from "react-router-dom";
 const NavBar = () => {
   return (
     <div className="navBar">
-      <NavLink to="/templates">my temlates</NavLink>
-      <NavLink to="/editor">editor</NavLink>
+      <NavLink className="topBarItm" to="/templates">my templates</NavLink>
+      <NavLink className="topBarItm" to="/editor">editor</NavLink>
     </div>
   );
 };

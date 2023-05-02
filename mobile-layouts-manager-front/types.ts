@@ -1,31 +1,28 @@
 export interface Device {
-  height: number;
-  width: number;
-  screens: MyScreen[];
+    height: number
+    width: number
+    screens: MyScreen[]
 }
 
 export interface Devices {
-  phone: Device | null;
-  tablet: Device | null;
-  miniPhone: Device | null;
+    phone: Device | null
+    tablet: Device | null
+    miniPhone: Device | null
 }
 
 export interface MyScreen {
-  navigation: "bottomTab" | "drower" | "stack";
-  bc: string;
+    nav: Nav
+    bc: string
+}
+
+export interface Nav {
+    bottomTabs: string[] | null
+    drawer: string[] | null
+    stack: string[] | null
+
 }
 
 export interface Template {
-  name: string;
-  devices: Devices;
-}
-
-export interface BottomTabNav {
-  tabs: Tab[]
-}
-
-export interface Tab {
-  name: string
-  screenColor: string
-  components: any
+    name: string
+    devices: Devices
 }

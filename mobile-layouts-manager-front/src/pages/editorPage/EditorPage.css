@@ -1,0 +1,51 @@
+.screensSeparator {
+    flex: 1;
+}
+
+.toolsbar {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    border: 1px solid black;
+    align-items: center;
+}
+
+.toolsbarItem {
+    height: 50px;
+    width: 50px;
+    border-right: 1px solid black;
+}
+
+.toolsbarItemBtn {
+    height: 100%;
+    width: 100%
+}
+
+.prevOkBtnSeparator {
+    flex: 1;
+}
+
+.okButton {
+    align-self: center;
+    margin: 0 10px 0 10px;
+}
+
+.dropDownNav {
+    height: 20px;
+    align-self: center;
+    margin-left: 20px;
+    border: 1px solid black;
+}
+
+select {
+    appearance: none;
+    padding: 0 1em 0 0;
+    margin: 0 0 0 10px;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    outline: none;
+    align-self: center;
+}

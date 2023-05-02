@@ -1,4 +1,9 @@
 .navBar {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+}
+
+.topBarItm {
+    margin-left: 10px;
+    margin-right: 10px;
 }
