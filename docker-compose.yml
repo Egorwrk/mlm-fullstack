@@ -3,7 +3,7 @@ services:
   react_app:
     container_name: react
 #    image: react-im
-    build: ./mlm-front
+    build: mobile-layout-manager-front
     volumes:
       - ./mlm-front:/opt/src/app
     ports:
