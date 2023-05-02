@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  react_app:
+    container_name: react
+#    image: react-im
+    build: ./mlm-front
+    volumes:
+      - ./mlm-front:/opt/src/app
+    ports:
+      - "3000:3000"
+
+  php-fpm:
+    container_name: php-fpm
+#    image: php
+    build: ./mlm-back
+    volumes:
+      - ./mlm-back:/var/www/html
+    ports:
+      - "3003:3003"
+
+  nginx:
+    container_name: nginx
+#    build: ./nginx
+    image: nginx
+    volumes:
+      - ./mlm-back:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "3002:80"
+
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./volume/mysql:/var/lib/mysql
+
+volumes:
+  docker: {}
