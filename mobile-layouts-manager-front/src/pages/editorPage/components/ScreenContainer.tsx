@@ -1,18 +1,20 @@
-import React from 'react';
+import React, {Dispatch, SetStateAction} from 'react';
 import {Device, MyScreen} from "../../../../types";
 import "./Components.css";
 
 interface Props {
-    name: string
     device: Device | undefined
     screenContent: MyScreen
     choseScreenActive: boolean
+    chosenScreensForAddingInNavList: string[]
+    setChosenScreensForAddingInNavList: Dispatch<SetStateAction<string[]>>
+    chosenNav: 'bottomTabs' | 'drawer' | null
 }
 
 const ScreenContainer = (props: Props) => {
     return (
-        <button onClick={() => console.log(321)} className="screenContainer" disabled={props.choseScreenActive}>
-            <text>{props.screenContent ? props.name : ''}</text>
+        <div className="screenContainer">
+            <text>{props.screenContent.name}</text>
             <div style={{
                 display: "flex",
                 flexDirection: 'column',
@@ -21,31 +23,25 @@ const ScreenContainer = (props: Props) => {
                 background: props.screenContent ? props.screenContent.bc : 'transparent'
             }}>
 
-                <div className="screenContentContainer">
-
-                </div>
+                <div className="screenContentContainer"></div>
 
                 {props.screenContent && props.screenContent.nav.bottomTabs
                     ? <div className="bottomTabsContainer">
                         {props.screenContent.nav.bottomTabs.map((screen) => {
                             return (
                                 <button
-                                    onClick={() => {
-                                        console.log('NavBtnPressed')
-                                    }}
                                     key={screen}
                                     className="bottomTabContainer"
                                     disabled={!props.choseScreenActive}>
                                     <text className="tabText">{screen}</text>
                                 </button>
                             )
-                        })
-                        }
+                        })}
                     </div>
                     : null
                 }
             </div>
-        </button>
+        </div>
     );
 };
 

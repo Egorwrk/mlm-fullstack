@@ -2,6 +2,7 @@ export interface Device {
     height: number
     width: number
     screens: MyScreen[]
+    nav: Nav
 }
 
 export interface Devices {
@@ -11,6 +12,7 @@ export interface Devices {
 }
 
 export interface MyScreen {
+    name: string
     nav: Nav
     bc: string
 }
@@ -18,8 +20,6 @@ export interface MyScreen {
 export interface Nav {
     bottomTabs: string[] | null
     drawer: string[] | null
-    stack: string[] | null
-
 }
 
 export interface Template {

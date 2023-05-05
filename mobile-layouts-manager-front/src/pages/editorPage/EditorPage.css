@@ -1,13 +1,10 @@
-.screensSeparator {
-    flex: 1;
-}
-
 .toolsbar {
     display: flex;
     flex-direction: row;
     height: 50px;
     border: 1px solid black;
     align-items: center;
+    /*margin-bottom: 50px;*/
 }
 
 .toolsbarItem {
@@ -30,22 +27,27 @@
     margin: 0 10px 0 10px;
 }
 
-.dropDownNav {
-    height: 20px;
-    align-self: center;
-    margin-left: 20px;
-    border: 1px solid black;
-}
-
-select {
+.select {
     appearance: none;
     padding: 0 1em 0 0;
     margin: 0 0 0 10px;
-    width: 100%;
     font-family: inherit;
     font-size: inherit;
     cursor: inherit;
     line-height: inherit;
     outline: none;
     align-self: center;
+}
+
+.gridScreenContainer {
+    align-items: center;
+    justify-content: center;
+}
+
+.btnScreenContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0 20px 0;
+    text-align: center;
+    align-items: center;
 }

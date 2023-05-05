@@ -2,42 +2,31 @@ import React, {useEffect, useState} from "react";
 import {myTemplates} from "../../tempConstants"
 import "./EditorPage.css";
 import {Devices, Template, MyScreen, Device} from "../../../types";
-import axios from "axios";
 import ScreenContainer from "./components/ScreenContainer";
+import {Grid} from '@mui/material'
+import {Select, MenuItem} from '@mui/material';
 
 const EditorPage = (props: any) => {
-    const [screens, setScreens] = useState<MyScreen[][]>([])
+    const [screens, setScreens] = useState<MyScreen[]>([])
     const [device, setDevice] = useState<Device>()
     const [chosenNav, setChosenNav] = useState<'bottomTabs' | 'drawer' | null>(null)
     const [choseScreenActive, setChoseScreenActive] = useState<boolean>(true)
-    const [chosenScreens, setChosenScreens] = useState<string[]>([])
-
-    const screenReworking = (screens: MyScreen[]): MyScreen[][] => {
-        const reworkedScreens: MyScreen[][] = [];
-        let oneScreensRow: MyScreen[] = [];
-        for (let i = 0; i < screens.length; i++) {
-            oneScreensRow.push(screens[i]);
-            if ((i + 1) % 3 === 0 || i + 1 === screens.length) {
-                reworkedScreens.push(oneScreensRow);
-                oneScreensRow = [];
-            }
-        }
-
-        return reworkedScreens;
-    };
+    const [chosenScreensForAddingInNavList, setChosenScreensForAddingInNavList] = useState<string[]>([])
 
     useEffect(() => {
-        console.log('props', props)
+        setScreens(props.location.state.device.screens)
         let devices: Devices = {
             phone: {
                 height: 500,
                 width: 300,
                 screens: [
                     {
-                        nav: {bottomTabs: null, drawer: null, stack: null},
+                        name: '100',
+                        nav: {bottomTabs: null, drawer: null},
                         bc: 'red'
                     }
-                ]
+                ],
+                nav: {bottomTabs: null, drawer: null},
             },
             tablet: null,
             miniPhone: null,
@@ -51,49 +40,93 @@ const EditorPage = (props: any) => {
                     }
                 })
             }
-
-            let reworkedScreens: MyScreen[][] = []
             if (devices) {
-
                 if (devices.phone) {
-                    reworkedScreens = screenReworking(devices.phone.screens)
                     setDevice({
                         height: devices.phone.height,
                         width: devices.phone.width,
-                        screens: []
+                        screens: [],
+                        nav: {bottomTabs: ['1', '2', '5'], drawer: null}
                     })
                 } else if (devices.tablet) {
-                    reworkedScreens = screenReworking(devices.tablet.screens)
                     setDevice({
                         height: devices.tablet.height,
                         width: devices.tablet.width,
-                        screens: []
+                        screens: [],
+                        nav: {bottomTabs: null, drawer: null}
                     })
                 } else if (devices.miniPhone) {
-                    reworkedScreens = screenReworking(devices.miniPhone.screens)
                     setDevice({
                         height: devices.miniPhone.height,
                         width: devices.miniPhone.width,
-                        screens: []
+                        screens: [],
+                        nav: {bottomTabs: null, drawer: null}
                     })
                 }
             }
-
-            setScreens(reworkedScreens);
-        } else {
-            console.log('else')
         }
-
-
     }, [])
 
-    const handleTypeSelect = (e: any) => {
-        if (e.value === 'None') {
-            setChosenNav(null);
-        } else {
-            setChosenNav(e.value)
-        }
+    const filterNavList = (navList: string[], name: string) => {
+        return navList.filter((el) => {
+            return el !== name
+        })
+    }
 
+    const addOrDeleteScreenFromNavList = (name: string) => {
+        const updatedNav = device!.nav
+        if (chosenNav === 'bottomTabs') {
+            if (updatedNav.bottomTabs) {
+                if (updatedNav.bottomTabs.length === filterNavList(updatedNav.bottomTabs, name).length) {
+                    updatedNav.bottomTabs.push(name)
+                } else {
+                    updatedNav.bottomTabs = filterNavList(updatedNav.bottomTabs, name)
+                }
+            } else {
+                updatedNav.bottomTabs = [name]
+            }
+            const updatedScreens: MyScreen[] = screens.map((screen): MyScreen => {
+                if (screen.name === name) {
+                    if (updatedNav.bottomTabs && updatedNav.bottomTabs.length > 0) {
+                        for (let i = 0; i < updatedNav.bottomTabs.length; i++) {
+                            if (updatedNav.bottomTabs[i] === name) {
+                                return {
+                                    ...screen,
+                                    nav: updatedNav
+                                }
+                            }
+                        }
+                        return {
+                            ...screen,
+                            nav: {
+                                bottomTabs: null,
+                                drawer: updatedNav.drawer
+                            }
+                        }
+                    }
+
+                }
+                if (screen.nav.bottomTabs || screen.name === name) {
+                    return {
+                        ...screen,
+                        nav: updatedNav
+                    }
+                } else {
+                    return screen
+                }
+            })
+            setDevice({
+                height: device!.height,
+                width: device!.width,
+                nav: updatedNav,
+                screens: updatedScreens
+            })
+            setScreens(updatedScreens)
+        }
+    }
+
+    const handleTypeSelect = (e: any) => {
+        setChosenNav(e.target.value)
     };
 
     return <div style={{display: "flex", flex: 1, flexDirection: 'column'}}>
@@ -113,11 +146,10 @@ const EditorPage = (props: any) => {
 
             {!choseScreenActive
                 ? <div className="select">
-                    <select onChange={handleTypeSelect}>
-                        <option value="None">None</option>
-                        <option value='bottomTabs'>Drawer navigator</option>
-                        <option value='drawer'>Bottom tabs navigator</option>
-                    </select>
+                    <Select onChange={handleTypeSelect}>
+                        <MenuItem value={'bottomTabs'}>bottomTabs</MenuItem>
+                        <MenuItem value={'drawer'}>drawer</MenuItem>
+                    </Select>
                 </div>
                 : null
             }
@@ -132,31 +164,35 @@ const EditorPage = (props: any) => {
             }
 
         </div>
-        {screens.map((value, ind) => {
-            return (
-                <div key={ind} style={{
-                    display: 'flex',
-                    textAlign: 'center',
-                }}>
-                    <ScreenContainer name={(ind * 3 + 1).toString()} device={device} screenContent={value[0]}
-                                     choseScreenActive={choseScreenActive}/>
-                    <div className="screensSeparator"/>
-                    <ScreenContainer name={(ind * 3 + 2).toString()} device={device} screenContent={value[1]}
-                                     choseScreenActive={choseScreenActive}/>
-                    <div className="screensSeparator"/>
-                    <ScreenContainer name={(ind * 3 + 3).toString()} device={device} screenContent={value[2]}
-                                     choseScreenActive={choseScreenActive}/>
-                </div>
-            )
-        })}
+        <Grid container className="gridContainer">
+            {screens.map((screen: MyScreen) => {
+                return (
+                    <Grid
+                        container
+                        key={screen.name}
+                        item
+                        xs={4}
+                        className="gridScreenContainer"
+                    >
+                        <button
+                            className="btnScreenContainer"
+                            onClick={() => addOrDeleteScreenFromNavList(screen.name)}
+                            disabled={choseScreenActive}
+                        >
+                            <ScreenContainer
+                                device={device}
+                                screenContent={screen}
+                                choseScreenActive={choseScreenActive}
+                                chosenScreensForAddingInNavList={chosenScreensForAddingInNavList}
+                                setChosenScreensForAddingInNavList={setChosenScreensForAddingInNavList}
+                                chosenNav={chosenNav}
+                            />
+                        </button>
+                    </Grid>
+                )
+            })}
+        </Grid>
     </div>
 };
 
-export default EditorPage;
-
-
-// axios.get(`http://localhost:3002/index.php`)
-//     .then(res => {
-//         console.log(res.data);
-//         console.log(res.data.message)
-//     })
+export default EditorPage

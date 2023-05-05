@@ -9,74 +9,92 @@ export const myTemplates: Template[] = [
         width: 300,
         screens: [
           {
-            nav : {bottomTabs: ['1', '2', '5'], drawer: null, stack: null},
+            name: '1',
+            nav : {bottomTabs: ['1', '2', '5'], drawer: null},
             bc: "green",
           },
           {
-            nav : {bottomTabs: ['1', '2', '5'], drawer: null, stack: null},
+            name: '2',
+            nav : {bottomTabs: ['1', '2', '5'], drawer: null},
             bc: "gray",
           },
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '3',
+            nav : {bottomTabs: null, drawer: null},
             bc: "black",
           },
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '4',
+            nav : {bottomTabs: null, drawer: null},
             bc: "red",
           },
           {
-            nav : {bottomTabs: ['1', '2', '5'], drawer: null, stack: null},
+            name: '5',
+            nav : {bottomTabs: ['1', '2', '5'], drawer: null},
             bc: "green",
           },
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '6',
+            nav : {bottomTabs: null, drawer: null},
             bc: "gray",
           },
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '7',
+            nav : {bottomTabs: null, drawer: null},
             bc: "black",
           },
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '8',
+            nav : {bottomTabs: null, drawer: null},
             bc: "red",
           },
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '9',
+            nav : {bottomTabs: null, drawer: null},
             bc: "green",
           },
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '10',
+            nav : {bottomTabs: null, drawer: null},
             bc: "gray",
           },
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '11',
+            nav : {bottomTabs: null, drawer: null},
             bc: "black",
           },
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '12',
+            nav : {bottomTabs: null, drawer: null},
             bc: "red",
           },
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '13',
+            nav : {bottomTabs: null, drawer: null},
             bc: "green",
           },
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '14',
+            nav : {bottomTabs: null, drawer: null},
             bc: "gray",
           },
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '15',
+            nav : {bottomTabs: null, drawer: null},
             bc: "black",
           },
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '16',
+            nav : {bottomTabs: null, drawer: null},
             bc: "red",
           },
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '17',
+            nav : {bottomTabs: null, drawer: null},
             bc: "yellow",
           },
         ],
+        nav : {bottomTabs: ['1', '2', '5'], drawer: null},
       },
       tablet: null,
       miniPhone: null,
@@ -90,10 +108,12 @@ export const myTemplates: Template[] = [
         width: 300,
         screens: [
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '1',
+            nav : {bottomTabs: null, drawer: null},
             bc: "red",
           },
         ],
+        nav: {bottomTabs: null, drawer: null}
       },
       tablet: null,
       miniPhone: null,
@@ -107,10 +127,12 @@ export const myTemplates: Template[] = [
         width: 300,
         screens: [
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '1',
+            nav : {bottomTabs: null, drawer: null},
             bc: "yellow",
           },
         ],
+        nav: {bottomTabs: null, drawer: null}
       },
       tablet: null,
       miniPhone: null,
@@ -124,10 +146,12 @@ export const myTemplates: Template[] = [
         width: 300,
         screens: [
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '1',
+            nav : {bottomTabs: null, drawer: null},
             bc: "gray",
           },
         ],
+        nav: {bottomTabs: null, drawer: null}
       },
       tablet: null,
       miniPhone: null,
@@ -141,10 +165,12 @@ export const myTemplates: Template[] = [
         width: 300,
         screens: [
           {
-            nav : {bottomTabs: null, drawer: null, stack: null},
+            name: '1',
+            nav : {bottomTabs: null, drawer: null},
             bc: "gray",
           },
         ],
+        nav: {bottomTabs: null, drawer: null}
       },
       tablet: null,
       miniPhone: null,
