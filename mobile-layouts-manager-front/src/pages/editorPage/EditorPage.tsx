@@ -74,54 +74,119 @@ const EditorPage = (props: any) => {
     }
 
     const addOrDeleteScreenFromNavList = (name: string) => {
-        const updatedNav = device!.nav
-        if (chosenNav === 'bottomTabs') {
-            if (updatedNav.bottomTabs) {
-                if (updatedNav.bottomTabs.length === filterNavList(updatedNav.bottomTabs, name).length) {
-                    updatedNav.bottomTabs.push(name)
+        if (device) {
+            const updatedNav = device.nav
+            if (chosenNav === 'bottomTabs') {
+                if (updatedNav.bottomTabs) {
+                    if (updatedNav.bottomTabs.length === filterNavList(updatedNav.bottomTabs, name).length) {
+                        if (updatedNav.bottomTabs.length >= 5) {
+                            alert("You already have 5 screens")
+                        } else {
+                            updatedNav.bottomTabs.push(name)
+                        }
+                    } else {
+                        updatedNav.bottomTabs = filterNavList(updatedNav.bottomTabs, name)
+                    }
                 } else {
-                    updatedNav.bottomTabs = filterNavList(updatedNav.bottomTabs, name)
+                    updatedNav.bottomTabs = [name]
                 }
-            } else {
-                updatedNav.bottomTabs = [name]
-            }
-            const updatedScreens: MyScreen[] = screens.map((screen): MyScreen => {
-                if (screen.name === name) {
-                    if (updatedNav.bottomTabs && updatedNav.bottomTabs.length > 0) {
-                        for (let i = 0; i < updatedNav.bottomTabs.length; i++) {
-                            if (updatedNav.bottomTabs[i] === name) {
-                                return {
-                                    ...screen,
-                                    nav: updatedNav
+                const updatedScreens: MyScreen[] = screens.map((screen): MyScreen => {
+                    if (screen.name === name) {
+                        if (updatedNav.bottomTabs && updatedNav.bottomTabs.length > 0) {
+                            for (let i = 0; i < updatedNav.bottomTabs.length; i++) {
+                                if (updatedNav.bottomTabs[i] === name) {
+                                    return {
+                                        ...screen,
+                                        nav: {
+                                            bottomTabs: updatedNav.bottomTabs,
+                                            drawer: screen.nav.drawer
+                                        }
+                                    }
+                                }
+                            }
+                            return {
+                                ...screen,
+                                nav: {
+                                    bottomTabs: null,
+                                    drawer: updatedNav.drawer
                                 }
                             }
                         }
+
+                    }
+                    if (screen.nav.bottomTabs || screen.name === name) {
                         return {
                             ...screen,
                             nav: {
-                                bottomTabs: null,
+                                bottomTabs: updatedNav.bottomTabs,
+                                drawer: screen.nav.drawer
+                            }
+                        }
+                    } else {
+                        return screen
+                    }
+                })
+                setDevice({
+                    height: device.height,
+                    width: device.width,
+                    nav: updatedNav,
+                    screens: updatedScreens
+                })
+                setScreens(updatedScreens)
+            } else {
+                if (updatedNav.drawer) {
+                    if (updatedNav.drawer.length === filterNavList(updatedNav.drawer, name).length) {
+                        updatedNav.drawer.push(name)
+                    } else {
+                        updatedNav.drawer = filterNavList(updatedNav.drawer, name)
+                    }
+                } else {
+                    updatedNav.drawer = [name]
+                }
+                const updatedScreens: MyScreen[] = screens.map((screen): MyScreen => {
+                    if (screen.name === name) {
+                        if (updatedNav.drawer && updatedNav.drawer.length > 0) {
+                            for (let i = 0; i < updatedNav.drawer.length; i++) {
+                                if (updatedNav.drawer[i] === name) {
+                                    return {
+                                        ...screen,
+                                        nav: {
+                                            bottomTabs: screen.nav.bottomTabs,
+                                            drawer: updatedNav.drawer
+                                        }
+                                    }
+                                }
+                            }
+                            return {
+                                ...screen,
+                                nav: {
+                                    bottomTabs: screen.nav.bottomTabs,
+                                    drawer: null
+                                }
+                            }
+                        }
+
+                    }
+                    if (screen.nav.drawer || screen.name === name) {
+                        return {
+                            ...screen,
+                            nav: {
+                                bottomTabs: screen.nav.bottomTabs,
                                 drawer: updatedNav.drawer
                             }
                         }
+                    } else {
+                        return screen
                     }
-
-                }
-                if (screen.nav.bottomTabs || screen.name === name) {
-                    return {
-                        ...screen,
-                        nav: updatedNav
-                    }
-                } else {
-                    return screen
-                }
-            })
-            setDevice({
-                height: device!.height,
-                width: device!.width,
-                nav: updatedNav,
-                screens: updatedScreens
-            })
-            setScreens(updatedScreens)
+                })
+                setDevice({
+                    height: device.height,
+                    width: device.width,
+                    nav: updatedNav,
+                    screens: updatedScreens
+                })
+                setScreens(updatedScreens)
+            }
         }
     }
 

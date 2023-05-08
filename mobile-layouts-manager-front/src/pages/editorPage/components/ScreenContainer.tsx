@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction} from 'react';
+import React, {Dispatch, SetStateAction, useState} from 'react';
 import {Device, MyScreen} from "../../../../types";
 import "./Components.css";
 
@@ -12,6 +12,7 @@ interface Props {
 }
 
 const ScreenContainer = (props: Props) => {
+    const [drawerNavMenuShow, setDrawerNavMenuShow] = useState<boolean>(false)
     return (
         <div className="screenContainer">
             <text>{props.screenContent.name}</text>
@@ -23,7 +24,35 @@ const ScreenContainer = (props: Props) => {
                 background: props.screenContent ? props.screenContent.bc : 'transparent'
             }}>
 
-                <div className="screenContentContainer"></div>
+                <div className="screenContentContainer">
+                    <div className='screenTopBar'>
+                        <button
+                            className='drawerBtn'
+                            onClick={() => {
+                                setDrawerNavMenuShow(!drawerNavMenuShow)
+                            }}
+                            disabled={!props.choseScreenActive}
+                        >
+                            D
+                        </button>
+                    </div>
+                    <div className='screenContentWrapper'>
+                        {drawerNavMenuShow
+                            ? <div className='leftNavMenuContainer'>
+                                {props.screenContent && props.screenContent.nav.drawer
+                                    ? <div className='leftNavMenu'>
+                                        {props.screenContent.nav.drawer.map((screenName) => {
+                                            return <button className='drawerNavBtn'
+                                                           key={screenName}>{screenName}</button>
+                                        })}
+                                    </div>
+                                    : null
+                                }
+                            </div>
+                            : null
+                        }
+                    </div>
+                </div>
 
                 {props.screenContent && props.screenContent.nav.bottomTabs
                     ? <div className="bottomTabsContainer">

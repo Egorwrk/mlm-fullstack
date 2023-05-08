@@ -1,5 +1,6 @@
 .screenContainer {
     display: flex;
+    flex: 1;
     flex-direction: column;
     margin: 20px 0 20px 0;
     text-align: center;
@@ -7,7 +8,10 @@
 }
 
 .screenContentContainer {
+    display: flex;
     flex: 1;
+    width: 100%;
+    flex-direction: column;
 }
 
 .bottomTabsContainer {
@@ -26,4 +30,47 @@
 
 .tabText {
     justify-self: center;
+}
+
+.screenTopBar {
+    height: 50px;
+    width: 100%;
+    background-color: blue;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.drawerBtn {
+    height: 30px;
+    width: 30px;
+    background-color: violet;
+    margin-left: 10px;
+}
+
+.screenContentWrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+}
+
+.leftNavMenuContainer {
+    flex: 1;
+    width: 150px;
+    background-color: purple;
+}
+
+.leftNavMenu {
+    display: flex;
+    flex: 1;
+    align-items: flex-start;
+    padding: 10px 0 0 10px;
+    flex-direction: column;
+}
+
+.drawerNavBtn {
+    width: 80%;
+    margin: 5px 0 5px 0;
+    background: transparent;
 }
