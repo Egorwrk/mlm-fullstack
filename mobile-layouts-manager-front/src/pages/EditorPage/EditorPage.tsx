@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {myTemplates} from "../../tempConstants"
-import "./EditorPage.css";
+import {myTemplates} from "../../assets/tempConstants"
+import "../../assets/EditorPage.css";
 import {Devices, Template, MyScreen, Device} from "../../../types";
-import ScreenContainer from "./components/ScreenContainer";
+import ScreenContainer from "../../components/ScreenContainer";
 import {Grid} from '@mui/material'
 import {Select, MenuItem} from '@mui/material';
 

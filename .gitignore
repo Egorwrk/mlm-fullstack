@@ -1,3 +1,5 @@
 /volume/mysql
 /mobile-layouts-manager-front/node_modules
 /dontForget.txt
+/mobile-layouts-manager-front/.npmignore
+/mobile-layouts-manager-front/.eslintrc.json

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import "./TemplatesPage.css";
+import "../../assets/TemplatesPage.css";
 import {Template, MyScreen, Device} from "../../../types";
-import {myTemplates} from "../../tempConstants";
+import {myTemplates} from "../../assets/tempConstants";
 import {Link} from "react-router-dom";
 
 const TemplateViewer = (templ: Template) => {
