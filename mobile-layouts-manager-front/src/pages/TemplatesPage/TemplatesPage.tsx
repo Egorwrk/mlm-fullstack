@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
-import "../../assets/TemplatesPage.css";
-import {Template, MyScreen, Device} from "../../../types";
-import {myTemplates} from "../../assets/tempConstants";
-import {Link} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import '../../assets/TemplatesPage.css';
+import {Template, MyScreen, Device} from '../../../types';
+import {myTemplates} from '../../assets/tempConstants';
+import {Link} from 'react-router-dom';
 
 const TemplateViewer = (templ: Template) => {
     return (
-        <div key={templ.name} className="template">
+        <div key={templ.name} className='template'>
             {templ.devices.phone
                 ? screenParser(
                     templ.name,
@@ -34,13 +34,13 @@ const TemplateViewer = (templ: Template) => {
 const screenParser = (name: string, device: Device, screen: MyScreen) => {
     return (
         <Link to={{
-            pathname: "/editor",
+            pathname: '/editor',
             state: {
                 name: name,
                 device: device,
             }
         }}>
-            <text>{name}</text>
+            <p>{name}</p>
             <div
                 style={{
                     height: device.height,
@@ -74,27 +74,27 @@ function TemplatesPage() {
         setTemplates(reworkedTeplates);
     }, []);
 
-    return <div className="TemplatesPage">
-        <div className="myTemplates">
+    return <div className='TemplatesPage'>
+        <div className='myTemplates'>
             {templates.map((templRow: Template[], ind: number) => {
                 return (
-                    <div key={ind} className="templsRow">
+                    <div key={ind} className='templsRow'>
                         {TemplateViewer(templRow[0])}
 
-                        <div className="templsSepar"/>
+                        <div className='templsSepar'/>
 
                         {templRow[1]
                             ? TemplateViewer(templRow[1])
                             : null
                         }
 
-                        <div className="templsSepar"/>
+                        <div className='templsSepar'/>
 
                         {templRow[2]
                             ? (TemplateViewer(templRow[2]))
                             : (<div>
-                                <div className="emptyTemp"/>
-                                <div className="twoSepar"/>
+                                <div className='emptyTemp'/>
+                                <div className='twoSepar'/>
                             </div>)
                         }
                     </div>
