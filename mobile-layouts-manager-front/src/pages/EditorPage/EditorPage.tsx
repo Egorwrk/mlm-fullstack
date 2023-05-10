@@ -59,7 +59,7 @@ const EditorPage = (props: any) => {
                                 ...screen,
                                 nav: {
                                     bottomTabs: null,
-                                    drawer: updatedNav.drawer
+                                    drawer: screen.nav.drawer
                                 }
                             }
                         }
@@ -103,7 +103,7 @@ const EditorPage = (props: any) => {
                             return {
                                 ...screen,
                                 nav: {
-                                    bottomTabs: updatedNav.bottomTabs,
+                                    bottomTabs: screen.nav.bottomTabs,
                                     drawer: null
                                 }
                             }
