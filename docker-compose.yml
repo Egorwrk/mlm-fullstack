@@ -2,7 +2,8 @@ version: "3.8"
 services:
   react_app:
     container_name: react
-    build: mobile-layouts-manager-front
+    build:
+      dockerfile: dockerfiles/front/Dockerfile
     volumes:
       - ./mobile-layouts-manager-front:/opt/src/app
     ports:
@@ -10,7 +11,8 @@ services:
 
   php-fpm:
     container_name: php-fpm
-    build: ./mlm-back
+    build:
+      dockerfile: dockerfiles/back/Dockerfile
     volumes:
       - ./mlm-back:/var/www/html
     ports:
