@@ -1,5 +1,11 @@
-/volume/mysql
+/volume
+/.idea
+/.DS_Store
 /mobile-layouts-manager-front/node_modules
-/dontForget.txt
 /mobile-layouts-manager-front/.npmignore
 /mobile-layouts-manager-front/.eslintrc.json
+/mobile-layouts-manager-front/tsconfig.json
+/mobile-layouts-manager-front/build
+/mobile-layouts-manager-front/.DS_Store
+/mobile-layouts-manager-front/.idea
+/mlm-back/.idea
