@@ -5,6 +5,7 @@ import TemplatesPage from './pages/TemplatesPage/TemplatesPage';
 import EditorPage from './pages/EditorPage/EditorPage';
 import NavBar from './components/NavBar';
 import ViewerPage from './pages/ViewerPage/ViewerPage';
+import AuthorizationPage from './pages/AuthorizationPage/AuthorizationPage';
 
 function App() {
     const [logToggle, setLogToggle] = useState<boolean>(false);
@@ -12,6 +13,7 @@ function App() {
     return (
         <BrowserRouter>
             <div className='App'>
+                <Route path={'/authorization'} component={AuthorizationPage}/>
                 <div className='topBar'>
                     <NavBar/>
                     <div className='headerSeparator'/>

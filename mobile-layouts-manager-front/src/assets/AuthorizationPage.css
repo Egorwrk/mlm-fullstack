@@ -1,0 +1,42 @@
+.authPageContainer {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    align-items: center;
+    justify-content: center;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    width: 500px;
+    border: 1px solid gray;
+    padding: 20px;
+}
+
+.inputRowContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.rowTextIdentifierContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100px;
+    background-color: red;
+    padding: 0;
+}
+
+.rowTextIdentifier {
+    margin: 10px 0 10px 0;
+}
+
+.inputContainer {
+    height: 100%;
+    justify-self: center;
+}
