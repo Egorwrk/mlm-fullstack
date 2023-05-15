@@ -1,24 +1,93 @@
 import React, {useState} from 'react';
 import '../../assets/AuthorizationPage.css';
+import axios, {AxiosRequestConfig} from "axios";
+import qs from 'qs';
 
-const AuthorizationPage = () => {
+const AuthorizationPage = (props: any) => {
     const [registrOrLogin, setRegistrOrLogin] = useState<boolean>(true)
+    const [login, setLogin] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const [confirmPassword, setConfirmPassword] = useState<string>('')
+    const [email, setEmail] = useState<string>('')
+
+    const registrationBtnPressed = () => {
+        if (login && password && email && password === confirmPassword) {
+            const userData = {
+                login: login,
+                password: password,
+                email: email
+            }
+            const options: AxiosRequestConfig = {
+                method: 'POST',
+                headers: {'content-type': 'application/x-www-form-urlencoded'},
+                data: qs.stringify(userData),
+                url: `http://localhost/app/Events/registration.php`,
+            }
+            axios(options).then((res) => {
+                if (res.data === 'registration completed') {
+                    props.history.push("/templates");
+                } else {
+                    alert(res.data)
+                }
+            })
+        } else {
+            alert('enter login, password, email and confirm password')
+        }
+    }
+
+    const loginBtnPressed = () => {
+        if (login && password) {
+            const userData = {
+                login: login,
+                password: password,
+            }
+            const options: AxiosRequestConfig = {
+                method: 'POST',
+                headers: {'content-type': 'application/x-www-form-urlencoded'},
+                data: qs.stringify(userData),
+                url: `http://localhost/app/Events/login.php`,
+            }
+            axios(options).then((res) => {
+                if (res.data == 'auth success') {
+                    props.history.push("/templates");
+                } else {
+                    alert(res.data)
+                }
+            })
+        }
+    }
+
     return (
         <div className='authPageContainer'>
             <div className='formContainer'>
-                <input className='inputField' placeholder='Login'></input>
-                <input className='inputField' placeholder='Password'></input>
+                <input className='inputField'
+                       placeholder='Login'
+                       value={login}
+                       onChange={(event) => setLogin(event.target.value)}
+                />
+                <input className='inputField'
+                       placeholder='Password'
+                       value={password}
+                       onChange={(event) => setPassword(event.target.value)}
+                />
                 {registrOrLogin
-                    ? <input className='inputField' placeholder='Confirm password'></input>
+                    ? <input className='inputField'
+                             placeholder='Confirm password'
+                             value={confirmPassword}
+                             onChange={(event) => setConfirmPassword(event.target.value)}
+                    />
                     : null
                 }
                 {registrOrLogin
-                    ? <input className='inputField' placeholder='Email'></input>
+                    ? <input className='inputField' placeholder='Email' value={email}
+                             onChange={(event) => setEmail(event.target.value)}/>
                     : null
                 }
                 <span className='separator'/>
-                <p onClick={() => setRegistrOrLogin(!registrOrLogin)} className='registrLoginToggleBtn'>{!registrOrLogin ? 'Registration' : 'Login'}</p>
-                <button className='confirmBtn'>
+                <p onClick={() => setRegistrOrLogin(!registrOrLogin)}
+                   className='registrLoginToggleBtn'>{!registrOrLogin ? 'Registration' : 'Login'}</p>
+                <button className='confirmBtn'
+                        onClick={() => registrOrLogin ? registrationBtnPressed() : loginBtnPressed()}>
                     <p>{registrOrLogin ? 'Registration' : 'Login'}</p>
                 </button>
             </div>
