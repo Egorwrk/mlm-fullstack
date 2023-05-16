@@ -1,6 +1,8 @@
 FROM php:8.1-fpm
 
-COPY ../../mlm-back /var/www/html
+RUN apt-get update && docker-php-ext-install pdo_mysql
+
+WORKDIR /var/www/html
 
 RUN docker-php-ext-install mysqli
 
