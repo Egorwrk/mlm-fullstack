@@ -36,7 +36,12 @@ const EditorPage = (props: any) => {
                             updatedNav.bottomTabs.push(name)
                         }
                     } else {
-                        updatedNav.bottomTabs = filterNavList(updatedNav.bottomTabs, name)
+                        if (filterNavList(updatedNav.bottomTabs, name).length === 0) {
+                            updatedNav.bottomTabs = null
+                        } else {
+                            updatedNav.bottomTabs = filterNavList(updatedNav.bottomTabs, name)
+                        }
+
                     }
                 } else {
                     updatedNav.bottomTabs = [name]
@@ -81,7 +86,12 @@ const EditorPage = (props: any) => {
                     if (updatedNav.drawer.length === filterNavList(updatedNav.drawer, name).length) {
                         updatedNav.drawer.push(name)
                     } else {
-                        updatedNav.drawer = filterNavList(updatedNav.drawer, name)
+                        if (filterNavList(updatedNav.drawer, name).length === 0) {
+                            updatedNav.drawer = null
+                        } else {
+                            updatedNav.drawer = filterNavList(updatedNav.drawer, name)
+                        }
+
                     }
                 } else {
                     updatedNav.drawer = [name]
