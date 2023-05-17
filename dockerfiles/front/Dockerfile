@@ -4,7 +4,7 @@ WORKDIR /opt/src/app
 
 COPY ../../mobile-layouts-manager-front/package*.json ./
 
-RUN npm install -g serve/
+RUN npm install -g serve
 
 COPY ../../mobile-layouts-manager-front ./
 
