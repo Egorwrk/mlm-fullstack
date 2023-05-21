@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './assets/App.css';
-import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route} from 'react-router-dom';
 import TemplatesPage from './pages/TemplatesPage/TemplatesPage';
 import EditorPage from './pages/EditorPage/EditorPage';
 import NavBar from './components/NavBar';
@@ -22,16 +22,10 @@ function App() {
                 </div>
                 <div className='mainContainer'>
                     <div className='mainContent'>
-                        <Switch>
-                            <Route exact path='/'
-                                   render={() => <Redirect to={'/authorization'}/>}/>
-                            <Route path={'/authorization'} render={() => <AuthorizationPage/>}/>
-                            <Route path={'/templates'} render={() => <TemplatesPage/>}/>
-                            <Route path={'/editor'} render={() => <EditorPage/>}/>
-                            <Route path={'/viewer'} render={() => <ViewerPage/>}/>
-                            <Route path='*' render={() => <p>404 NOT FOUND</p>}/>
-                        </Switch>
-
+                        <Route path={'/auth'} component={AuthorizationPage}/>
+                        <Route path={'/templates'} component={TemplatesPage}/>
+                        <Route path={'/editor'} component={EditorPage}/>
+                        <Route path={'/viewer'} component={ViewerPage}/>
                     </div>
                 </div>
             </div>

@@ -15,13 +15,14 @@ const AuthorizationPage = (props: any) => {
             const userData = {
                 login: login,
                 password: password,
-                email: email
+                email: email,
+                q: 'registration'
             }
             const options: AxiosRequestConfig = {
                 method: 'POST',
                 headers: {'content-type': 'application/x-www-form-urlencoded'},
                 data: qs.stringify(userData),
-                url: `http://localhost/app/Controllers/registration.php`,
+                url: `http://localhost`,
             }
             axios(options).then((res) => {
                 if (res.data === 'registration completed') {
@@ -40,12 +41,13 @@ const AuthorizationPage = (props: any) => {
             const userData = {
                 login: login,
                 password: password,
+                q: 'login'
             }
             const options: AxiosRequestConfig = {
                 method: 'POST',
                 headers: {'content-type': 'application/x-www-form-urlencoded'},
                 data: qs.stringify(userData),
-                url: `http://localhost/app/Controllers/login.php`,
+                url: `http://localhost`,
             }
             axios(options).then((res) => {
                 if (res.data == 'auth success') {
