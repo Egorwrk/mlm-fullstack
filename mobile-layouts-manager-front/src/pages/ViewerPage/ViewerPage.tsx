@@ -62,7 +62,7 @@ const ViewerPage = (props: any) => {
                                 }
                             }}
                         >
-                            <p>next</p>
+                            {'next'}
                         </button>
                     </div>
                 </div>
