@@ -1,0 +1,26 @@
+.OnboardingContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.onboardingImage {
+    flex: 2;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+.rightMenu {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 0 10px 0 10px;
+    align-items: center;
+}
+
+.getStartBtnContainer {
+    width: 100px;
+}

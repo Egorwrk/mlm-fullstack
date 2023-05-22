@@ -7,6 +7,7 @@ import EditorPage from 'pages/EditorPage/EditorPage';
 import NavBar from 'components/NavBar';
 import ViewerPage from 'pages/ViewerPage/ViewerPage';
 import AuthorizationPage from 'pages/AuthorizationPage/AuthorizationPage';
+import OnboardingPage from 'pages/OnboardingPage/OnboardingPage';
 
 function App() {
     const [logToggle, setLogToggle] = useState<boolean>(false);
@@ -23,6 +24,7 @@ function App() {
                 </div>
                 <div className='mainContainer'>
                     <div className='mainContent'>
+                        <Route path={'/start'} component={OnboardingPage}/>
                         <Route path={'/auth'} component={AuthorizationPage}/>
                         <Route path={'/templates'} component={TemplatesPage}/>
                         <Route path={'/editor'} component={EditorPage}/>
