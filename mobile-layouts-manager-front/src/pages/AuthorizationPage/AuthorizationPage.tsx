@@ -91,7 +91,7 @@ const AuthorizationPage = (props: any) => {
                    className='registrLoginToggleBtn'>{!registrationOrLogin ? 'Registration' : 'Login'}</p>
                 <button className='confirmBtn'
                         onClick={() => registrationOrLogin ? registrationBtnPressed() : loginBtnPressed()}>
-                    <p>{registrationOrLogin ? 'Registration' : 'Login'}</p>
+                    {registrationOrLogin ? 'Registration' : 'Login'}
                 </button>
             </div>
         </div>
