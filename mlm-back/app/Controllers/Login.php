@@ -1,5 +1,9 @@
 <?php
 
+namespace app\Controllers;
+
+use PDO, PDOException;
+
 class Login
 {
     private $connect;
