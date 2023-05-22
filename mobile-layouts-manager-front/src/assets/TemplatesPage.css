@@ -24,12 +24,12 @@
     flex: 1;
   }
   
-  .emptyTemp {
+  .emptyTemplate {
     height: 500px;
     width: 320px;
   }
   
-  .twoSepar {
+  .twoSeparators {
     flex: 2;
   }
   

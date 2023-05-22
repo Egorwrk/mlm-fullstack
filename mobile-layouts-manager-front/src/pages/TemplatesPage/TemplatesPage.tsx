@@ -3,34 +3,34 @@ import {Link} from 'react-router-dom';
 
 import 'assets/TemplatesPage.css';
 import {myTemplates} from 'assets/tempConstants';
-import {Template, MyScreen, Device} from "../../../types";
+import {Template, MyScreen, Device} from '../../../types';
 
 const TemplateViewer = (template: Template) => {
     return (
         <div key={template.name} className='template'>
             {
                 template.devices.phone
-                ? screenParser(
-                    template.name,
-                    template.devices.phone,
-                    template.devices.phone.screens[0]
-                )
-                : template.devices.tablet
                     ? screenParser(
                         template.name,
-                        template.devices.tablet,
-                        template.devices.tablet.screens[0]
+                        template.devices.phone,
+                        template.devices.phone.screens[0]
                     )
-                    : template.devices.miniPhone
+                    : template.devices.tablet
                         ? screenParser(
                             template.name,
-                            template.devices.miniPhone,
-                            template.devices.miniPhone.screens[0]
+                            template.devices.tablet,
+                            template.devices.tablet.screens[0]
                         )
-                        : null}
+                        : template.devices.miniPhone
+                            ? screenParser(
+                                template.name,
+                                template.devices.miniPhone,
+                                template.devices.miniPhone.screens[0]
+                            )
+                            : null}
         </div>
-    );
-};
+    )
+}
 
 
 const screenParser = (name: string, device: Device, screen: MyScreen) => {
@@ -51,8 +51,8 @@ const screenParser = (name: string, device: Device, screen: MyScreen) => {
                 }}
             ></div>
         </Link>
-    );
-};
+    )
+}
 
 function TemplatesPage() {
     const [templates, setTemplates] = useState<Template[][]>([]);
@@ -69,12 +69,12 @@ function TemplatesPage() {
         }
 
         return reworkedTeplates;
-    };
+    }
 
     useEffect(() => {
         const reworkedTeplates = templatesReworking(myTemplates);
         setTemplates(reworkedTeplates);
-    }, []);
+    }, [])
 
     return <div className='TemplatesPage'>
         <div className='myTemplates'>
@@ -95,15 +95,15 @@ function TemplatesPage() {
                         {templatesRow[2]
                             ? (TemplateViewer(templatesRow[2]))
                             : (<div>
-                                <div className='emptyTemp'/>
-                                <div className='twoSepar'/>
+                                <div className='emptyTemplate'/>
+                                <div className='twoSeparators'/>
                             </div>)
                         }
                     </div>
-                );
+                )
             })}
         </div>
-    </div>;
+    </div>
 }
 
 export default TemplatesPage;
