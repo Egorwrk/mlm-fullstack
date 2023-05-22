@@ -1,107 +1,59 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+
+import {Grid} from "@mui/material";
 
 import 'assets/TemplatesPage.css';
-import {myTemplates} from 'assets/tempConstants';
-import {Template, MyScreen, Device} from '../../../types';
+import TemplateViewer from 'components/TemplateViewer';
+import {defaultTemplate, myTemplates} from 'assets/tempConstants';
+import CreateNewTemplateModal from 'components/CreateNewTemplateModal';
+import {Template} from '../../../types';
 
-const TemplateViewer = (template: Template) => {
-    return (
-        <div key={template.name} className='template'>
-            {
-                template.devices.phone
-                    ? screenParser(
-                        template.name,
-                        template.devices.phone,
-                        template.devices.phone.screens[0]
-                    )
-                    : template.devices.tablet
-                        ? screenParser(
-                            template.name,
-                            template.devices.tablet,
-                            template.devices.tablet.screens[0]
-                        )
-                        : template.devices.miniPhone
-                            ? screenParser(
-                                template.name,
-                                template.devices.miniPhone,
-                                template.devices.miniPhone.screens[0]
-                            )
-                            : null}
-        </div>
-    )
-}
-
-
-const screenParser = (name: string, device: Device, screen: MyScreen) => {
-    return (
-        <Link to={{
-            pathname: '/editor',
-            state: {
-                name: name,
-                device: device,
-            }
-        }}>
-            <p>{name}</p>
-            <div
-                style={{
-                    height: device.height,
-                    width: device.width,
-                    backgroundColor: screen.bc,
-                }}
-            ></div>
-        </Link>
-    )
-}
-
-function TemplatesPage() {
-    const [templates, setTemplates] = useState<Template[][]>([]);
-
-    const templatesReworking = (temps: Template[]): Template[][] => {
-        const reworkedTeplates: Template[][] = [];
-        let oneTempsRow: Template[] = [];
-        for (let i = 0; i < temps.length; i++) {
-            oneTempsRow.push(temps[i]);
-            if ((i + 1) % 3 === 0 || i + 1 === temps.length) {
-                reworkedTeplates.push(oneTempsRow);
-                oneTempsRow = [];
-            }
-        }
-
-        return reworkedTeplates;
-    }
+const TemplatesPage = () => {
+    const [templates, setTemplates] = useState<Template[]>([]);
+    const [showNewTemplateModalCreator, setShowNewTemplateModalCreator] = useState<boolean>(false);
+    const [newTemplate, setNewTemplate] = useState<Template>(defaultTemplate);
 
     useEffect(() => {
-        const reworkedTeplates = templatesReworking(myTemplates);
-        setTemplates(reworkedTeplates);
+        setTemplates(myTemplates);
     }, [])
 
     return <div className='TemplatesPage'>
+        {showNewTemplateModalCreator
+            ? <CreateNewTemplateModal
+                setShowNewTemplateModalCreator={setShowNewTemplateModalCreator}
+                newTemplate={newTemplate}
+                templates={templates}
+                setTemplates={setTemplates}
+                setNewTemplate={setNewTemplate}
+            />
+            : null
+        }
+
         <div className='myTemplates'>
-            {templates.map((templatesRow: Template[], ind: number) => {
-                return (
-                    <div key={ind} className='templatesRow'>
-                        {TemplateViewer(templatesRow[0])}
-
-                        <div className='templatesSeparator'/>
-
-                        {templatesRow[1]
-                            ? TemplateViewer(templatesRow[1])
-                            : null
-                        }
-
-                        <div className='templatesSeparator'/>
-
-                        {templatesRow[2]
-                            ? (TemplateViewer(templatesRow[2]))
-                            : (<div>
-                                <div className='emptyTemplate'/>
-                                <div className='twoSeparators'/>
-                            </div>)
-                        }
-                    </div>
-                )
-            })}
+            <Grid container>
+                {templates
+                    ? templates.map((template: Template) => {
+                        return (
+                            <Grid
+                                container
+                                key={template.name}
+                                item
+                                xs={4}
+                                className='gridScreenContainer'
+                            >
+                                {TemplateViewer(template)}
+                            </Grid>
+                        )
+                    })
+                    : null
+                }
+            </Grid>
+        </div>
+        <div>
+            <button
+                className='plusBtn'
+                onClick={() => setShowNewTemplateModalCreator(true)}
+            />
         </div>
     </div>
 }

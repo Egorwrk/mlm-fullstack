@@ -177,3 +177,29 @@ export const myTemplates: Template[] = [
     },
   },
 ];
+
+export const defaultTemplate: Template = {
+  name: '',
+  devices: {
+    phone: {
+      height: 500,
+      width: 300,
+      screens: [
+        {
+          name: '',
+          nav: {
+            bottomTabs: null,
+            drawer: null
+          },
+          bc: '#dddddd'
+        }
+      ],
+      nav: {
+        bottomTabs: null,
+        drawer: null
+      }
+    },
+    tablet: null,
+    miniPhone: null
+  },
+}
