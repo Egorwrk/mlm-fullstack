@@ -5,7 +5,7 @@ import qs from 'qs';
 import 'assets/AuthorizationPage.css';
 
 const AuthorizationPage = (props: any) => {
-    const [registrOrLogin, setRegistrOrLogin] = useState<boolean>(true)
+    const [registrationOrLogin, setRegistrationOrLogin] = useState<boolean>(true)
     const [login, setLogin] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
@@ -73,7 +73,7 @@ const AuthorizationPage = (props: any) => {
                        value={password}
                        onChange={(event) => setPassword(event.target.value)}
                 />
-                {registrOrLogin
+                {registrationOrLogin
                     ? <input className='inputField'
                              placeholder='Confirm password'
                              value={confirmPassword}
@@ -81,17 +81,17 @@ const AuthorizationPage = (props: any) => {
                     />
                     : null
                 }
-                {registrOrLogin
+                {registrationOrLogin
                     ? <input className='inputField' placeholder='Email' value={email}
                              onChange={(event) => setEmail(event.target.value)}/>
                     : null
                 }
                 <span className='separator'/>
-                <p onClick={() => setRegistrOrLogin(!registrOrLogin)}
-                   className='registrLoginToggleBtn'>{!registrOrLogin ? 'Registration' : 'Login'}</p>
+                <p onClick={() => setRegistrationOrLogin(!registrationOrLogin)}
+                   className='registrLoginToggleBtn'>{!registrationOrLogin ? 'Registration' : 'Login'}</p>
                 <button className='confirmBtn'
-                        onClick={() => registrOrLogin ? registrationBtnPressed() : loginBtnPressed()}>
-                    <p>{registrOrLogin ? 'Registration' : 'Login'}</p>
+                        onClick={() => registrationOrLogin ? registrationBtnPressed() : loginBtnPressed()}>
+                    <p>{registrationOrLogin ? 'Registration' : 'Login'}</p>
                 </button>
             </div>
         </div>

@@ -5,26 +5,27 @@ import 'assets/TemplatesPage.css';
 import {myTemplates} from 'assets/tempConstants';
 import {Template, MyScreen, Device} from "../../../types";
 
-const TemplateViewer = (templ: Template) => {
+const TemplateViewer = (template: Template) => {
     return (
-        <div key={templ.name} className='template'>
-            {templ.devices.phone
+        <div key={template.name} className='template'>
+            {
+                template.devices.phone
                 ? screenParser(
-                    templ.name,
-                    templ.devices.phone,
-                    templ.devices.phone.screens[0]
+                    template.name,
+                    template.devices.phone,
+                    template.devices.phone.screens[0]
                 )
-                : templ.devices.tablet
+                : template.devices.tablet
                     ? screenParser(
-                        templ.name,
-                        templ.devices.tablet,
-                        templ.devices.tablet.screens[0]
+                        template.name,
+                        template.devices.tablet,
+                        template.devices.tablet.screens[0]
                     )
-                    : templ.devices.miniPhone
+                    : template.devices.miniPhone
                         ? screenParser(
-                            templ.name,
-                            templ.devices.miniPhone,
-                            templ.devices.miniPhone.screens[0]
+                            template.name,
+                            template.devices.miniPhone,
+                            template.devices.miniPhone.screens[0]
                         )
                         : null}
         </div>
@@ -77,22 +78,22 @@ function TemplatesPage() {
 
     return <div className='TemplatesPage'>
         <div className='myTemplates'>
-            {templates.map((templRow: Template[], ind: number) => {
+            {templates.map((templatesRow: Template[], ind: number) => {
                 return (
-                    <div key={ind} className='templsRow'>
-                        {TemplateViewer(templRow[0])}
+                    <div key={ind} className='templatesRow'>
+                        {TemplateViewer(templatesRow[0])}
 
-                        <div className='templsSepar'/>
+                        <div className='templatesSeparator'/>
 
-                        {templRow[1]
-                            ? TemplateViewer(templRow[1])
+                        {templatesRow[1]
+                            ? TemplateViewer(templatesRow[1])
                             : null
                         }
 
-                        <div className='templsSepar'/>
+                        <div className='templatesSeparator'/>
 
-                        {templRow[2]
-                            ? (TemplateViewer(templRow[2]))
+                        {templatesRow[2]
+                            ? (TemplateViewer(templatesRow[2]))
                             : (<div>
                                 <div className='emptyTemp'/>
                                 <div className='twoSepar'/>
