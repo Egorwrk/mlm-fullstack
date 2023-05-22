@@ -11,27 +11,42 @@ const AuthorizationPage = (props: any) => {
     const [confirmPassword, setConfirmPassword] = useState<string>('')
     const [email, setEmail] = useState<string>('')
 
-    const registrationBtnPressed = () => {
-        if (login && password && email && password === confirmPassword) {
-            const userData = {
+    const requestDataCreator = (q: string) => {
+        if (q === 'login') {
+            return {
+                login: login,
+                password: password,
+                q: q
+            }
+        } else {
+            return {
                 login: login,
                 password: password,
                 email: email,
-                q: 'registration'
+                q: q
             }
-            const options: AxiosRequestConfig = {
-                method: 'POST',
-                headers: {'content-type': 'application/x-www-form-urlencoded'},
-                data: qs.stringify(userData),
-                url: `http://localhost`,
+        }
+    }
+
+    const axiosRequest = (requestType: 'login' | 'registration') => {
+        const options: AxiosRequestConfig = {
+            method: 'POST',
+            headers: {'content-type': 'application/x-www-form-urlencoded'},
+            data: qs.stringify(requestDataCreator(requestType)),
+            url: `http://localhost`,
+        }
+        axios(options).then((res) => {
+            if (requestType === 'registration' && res.data === 'registration completed' || requestType === 'login' && res.data === 'auth success') {
+                props.history.push("/templates");
+            } else {
+                alert(res.data)
             }
-            axios(options).then((res) => {
-                if (res.data === 'registration completed') {
-                    props.history.push("/templates");
-                } else {
-                    alert(res.data)
-                }
-            })
+        })
+    }
+
+    const registrationBtnPressed = () => {
+        if (login && password && email && password === confirmPassword) {
+            axiosRequest('registration')
         } else {
             alert('enter login, password, email and confirm password')
         }
@@ -39,24 +54,7 @@ const AuthorizationPage = (props: any) => {
 
     const loginBtnPressed = () => {
         if (login && password) {
-            const userData = {
-                login: login,
-                password: password,
-                q: 'login'
-            }
-            const options: AxiosRequestConfig = {
-                method: 'POST',
-                headers: {'content-type': 'application/x-www-form-urlencoded'},
-                data: qs.stringify(userData),
-                url: `http://localhost`,
-            }
-            axios(options).then((res) => {
-                if (res.data == 'auth success') {
-                    props.history.push("/templates");
-                } else {
-                    alert(res.data)
-                }
-            })
+            axiosRequest('login')
         }
     }
 
