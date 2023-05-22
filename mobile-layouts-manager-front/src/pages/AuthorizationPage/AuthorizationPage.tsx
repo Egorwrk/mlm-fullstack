@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import '../../assets/AuthorizationPage.css';
+import 'assets/AuthorizationPage.css';
 import axios, {AxiosRequestConfig} from "axios";
 import qs from 'qs';
 

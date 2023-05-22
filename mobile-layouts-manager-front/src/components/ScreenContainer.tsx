@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Device, MyScreen} from '../../types';
-import '../assets/Components.css';
+import {Device, MyScreen} from 'assets/types';
+import 'assets/Components.css';
 
 interface Props {
     device: Device | undefined

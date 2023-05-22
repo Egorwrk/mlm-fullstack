@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import './assets/App.css';
+import 'assets/App.css';
 import {BrowserRouter, Route} from 'react-router-dom';
-import TemplatesPage from './pages/TemplatesPage/TemplatesPage';
-import EditorPage from './pages/EditorPage/EditorPage';
-import NavBar from './components/NavBar';
-import ViewerPage from './pages/ViewerPage/ViewerPage';
-import AuthorizationPage from './pages/AuthorizationPage/AuthorizationPage';
+import TemplatesPage from 'pages/TemplatesPage/TemplatesPage';
+import EditorPage from 'pages/EditorPage/EditorPage';
+import NavBar from 'components/NavBar';
+import ViewerPage from 'pages/ViewerPage/ViewerPage';
+import AuthorizationPage from 'pages/AuthorizationPage/AuthorizationPage';
 
 function App() {
     const [logToggle, setLogToggle] = useState<boolean>(false);

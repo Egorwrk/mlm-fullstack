@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import '../../assets/EditorPage.css';
-import {MyScreen, Device} from '../../../types';
-import ScreenContainer from '../../components/ScreenContainer';
+import 'assets/EditorPage.css';
+import {MyScreen, Device} from 'assets/types';
+import ScreenContainer from 'components/ScreenContainer';
 import {Grid} from '@mui/material'
 import {Select, MenuItem} from '@mui/material';
 import {Link} from 'react-router-dom';
