@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import 'assets/ViewerPage.css';
+
 import {List, ListItem} from '@mui/material';
+
+import 'assets/ViewerPage.css';
 import ScreenContainer from 'components/ScreenContainer';
-import {Device} from "assets/types";
+import {Device} from "../../../types";
 
 const ViewerPage = (props: any) => {
     const [device, setDevice] = useState<Device>()

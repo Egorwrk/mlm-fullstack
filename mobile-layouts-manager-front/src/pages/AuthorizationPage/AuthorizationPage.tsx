@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import 'assets/AuthorizationPage.css';
 import axios, {AxiosRequestConfig} from "axios";
 import qs from 'qs';
+
+import 'assets/AuthorizationPage.css';
 
 const AuthorizationPage = (props: any) => {
     const [registrOrLogin, setRegistrOrLogin] = useState<boolean>(true)

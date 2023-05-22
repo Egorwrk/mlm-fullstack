@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import 'assets/App.css';
 import {BrowserRouter, Route} from 'react-router-dom';
+
+import 'assets/App.css';
 import TemplatesPage from 'pages/TemplatesPage/TemplatesPage';
 import EditorPage from 'pages/EditorPage/EditorPage';
 import NavBar from 'components/NavBar';
