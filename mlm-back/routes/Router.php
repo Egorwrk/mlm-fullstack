@@ -49,7 +49,7 @@ class Router
                     }
                     case 'templatesSaving':
                     {
-                        if (isset($_SESSION["login"]) && isset($_POST['templates'])) {
+                        if (isset($_COOKIE["login"]) && isset($_POST['templates'])) {
                             $conn = Controllers\DBConnect::connect();
                             $layoutsSave = new Controllers\TemplatesSaving($conn);
                             $layoutsSave->templatesSaving();
