@@ -1,5 +1,8 @@
 import React from 'react';
 
+import axios, {AxiosRequestConfig} from "axios";
+import qs from "qs";
+
 import {Template} from "../../types";
 
 interface Props {
@@ -13,8 +16,24 @@ interface Props {
 const CreateNewTemplateModal = (props: Props) => {
     const saveTemplate = () => {
         if (props.newTemplate.name && props.newTemplate.devices.phone!.screens[0].name) {
-            props.setTemplates([...props.templates, props.newTemplate])
-            props.setShowNewTemplateModalCreator(false)
+            const options: AxiosRequestConfig = {
+                withCredentials: true,
+                method: 'POST',
+                headers: {'content-type': 'application/x-www-form-urlencoded'},
+                data: qs.stringify({
+                    q: 'templatesSaving',
+                    templates: JSON.stringify([...props.templates, props.newTemplate])
+                }),
+                url: `http://localhost`,
+            }
+            axios(options).then((res) => {
+                if (res.data === 'successful save') {
+                    props.setTemplates([...props.templates, props.newTemplate])
+                    props.setShowNewTemplateModalCreator(false)
+                } else {
+                    alert(res.data)
+                }
+            })
         }
     }
 

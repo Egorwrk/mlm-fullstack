@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 
+import axios from "axios";
 import {Grid} from "@mui/material";
 
 import 'assets/TemplatesPage.css';
 import TemplateViewer from 'components/TemplateViewer';
-import {defaultTemplate, myTemplates} from 'assets/tempConstants';
+import {defaultTemplate} from 'assets/tempConstants';
 import CreateNewTemplateModal from 'components/CreateNewTemplateModal';
 import {Template} from '../../../types';
 
@@ -14,7 +15,9 @@ const TemplatesPage = () => {
     const [newTemplate, setNewTemplate] = useState<Template>(defaultTemplate);
 
     useEffect(() => {
-        setTemplates(myTemplates);
+        axios.get('http://localhost/templates', {withCredentials: true}).then((templates) => {
+            setTemplates(templates.data[0] ? templates.data : [])
+        })
     }, [])
 
     return <div className='TemplatesPage'>

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+
 import axios, {AxiosRequestConfig} from "axios";
 import qs from 'qs';
 
@@ -30,6 +31,7 @@ const AuthorizationPage = (props: any) => {
 
     const axiosRequest = (requestType: 'login' | 'registration') => {
         const options: AxiosRequestConfig = {
+            withCredentials: true,
             method: 'POST',
             headers: {'content-type': 'application/x-www-form-urlencoded'},
             data: qs.stringify(requestDataCreator(requestType)),
