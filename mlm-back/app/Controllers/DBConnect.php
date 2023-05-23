@@ -9,7 +9,7 @@ class DBConnect
     static private $dbhost = 'mysql';
     static private $dbuser = 'root';
     static private $dbpass = 'root';
-    static private $dbname = 'db';
+    static private $dbname = 'users';
 
     public static function connect()
     {

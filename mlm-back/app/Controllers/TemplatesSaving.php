@@ -4,7 +4,7 @@ namespace app\Controllers;
 
 use PDO, PDOException;
 
-class Login
+class TemplatesSaving
 {
     private $connect;
 
@@ -13,34 +13,28 @@ class Login
         $this->connect = $pdo;
     }
 
-    public function login()
+    public function templatesSaving()
     {
-        if (isset($_POST['login'])) {
+        if (isset($_POST['templates'])) {
             $errMsg = '';
-            $login = $_POST['login'];
-            $password = $_POST['password'];
+            $login = $_SESSION["login"];
+            $templates = $_POST['templates'];
             if ($login == '') $errMsg = 'Enter login';
-            if ($password == '') $errMsg = 'Enter password';
             if ($errMsg == '') {
                 try {
                     $stmt = $this->connect->prepare('SELECT * FROM users WHERE login = :login');
                     $stmt->execute(array(':login' => $login));
                     $data = $stmt->fetch(PDO::FETCH_ASSOC);
                     if ($data == false) {
-                        $errMsg = "User $login not found.";
+                        $errMsg = "User $login not authorized.";
                         echo $errMsg;
                     } else {
-                        if (md5($password) == $data['hash_password']) {
-                            setcookie("login", $login, 0, '/');
-                            echo 'auth success';
-                            exit;
-                        } else {
-                            $errMsg = 'Password not match.';
-                            echo $errMsg;
-                        }
+                        $sql = ("UPDATE users SET templates = '$templates' WHERE login = '$login'");
+                        $affectedRowsNumber = $this->connect->exec($sql);
+                        echo "Strings updated: $affectedRowsNumber";
                     }
                 } catch (PDOException $e) {
-                    echo $e->getMessage();
+                    echo "Database error: " . $e->getMessage();
                 }
             } else {
                 echo 'Error in Logging In.';

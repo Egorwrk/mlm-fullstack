@@ -9,21 +9,53 @@ class Router
 {
     public function rout()
     {
-        switch ($_POST['q']) {
-            case 'login':
+        switch ($_SERVER['REQUEST_METHOD']) {
+            case 'GET':
             {
-                if (isset($_POST['login']) && isset($_POST['password'])) {
-                    $conn = Controllers\DBConnect::connect();
-                    $log = new Controllers\Login($conn);
-                    $log->login();
+                switch ($_GET['q']) {
+                    case '/templates':
+                    {
+                        if (isset($_COOKIE['login'])) {
+                            $conn = Controllers\DBConnect::connect();
+                            $log = new Controllers\ReturnTemplates($conn);
+                            $log->returnTemplates();
+                        } else {
+                            echo "user doesn't auth";
+                        }
+                    }
                 }
+                break;
             }
-            case 'registration':
+            case 'POST':
             {
-                if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email'])) {
-                    $conn = Controllers\DBConnect::connect();
-                    $reg = new Controllers\Registration($conn);
-                    $reg->registration();
+                switch ($_POST['q']) {
+                    case 'login':
+                    {
+                        if (isset($_POST['login']) && isset($_POST['password'])) {
+                            $conn = Controllers\DBConnect::connect();
+                            $log = new Controllers\Login($conn);
+                            $log->login();
+                        }
+                        break;
+                    }
+                    case 'registration':
+                    {
+                        if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email'])) {
+                            $conn = Controllers\DBConnect::connect();
+                            $reg = new Controllers\Registration($conn);
+                            $reg->registration();
+                        }
+                        break;
+                    }
+                    case 'templatesSaving':
+                    {
+                        if (isset($_SESSION["login"]) && isset($_POST['templates'])) {
+                            $conn = Controllers\DBConnect::connect();
+                            $layoutsSave = new Controllers\TemplatesSaving($conn);
+                            $layoutsSave->templatesSaving();
+                        }
+                        break;
+                    }
                 }
             }
         }

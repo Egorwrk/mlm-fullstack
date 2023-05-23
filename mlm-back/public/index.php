@@ -1,5 +1,6 @@
 <?php
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: http://localhost:3001');
+header('Access-Control-Allow-Credentials: true');
 include "../bootstrap/Autoloader.php";
 
 use \routes\Router;
