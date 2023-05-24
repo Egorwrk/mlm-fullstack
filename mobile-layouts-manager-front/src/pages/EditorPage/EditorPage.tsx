@@ -2,14 +2,16 @@ import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
 import 'assets/EditorPage.css';
-import {Device} from "../../../types";
-import ScreensList from "../../components/ScreensList";
-import Toolsbar from "../../components/Toolsbar";
+import ScreensList from 'components/ScreensList';
+import Toolsbar from 'components/Toolsbar';
+import {Device} from '../../../types';
 
 const EditorPage = (props: any) => {
     const [device, setDevice] = useState<Device>()
     const [chosenNav, setChosenNav] = useState<'bottomTabs' | 'drawer' | null>('bottomTabs')
-    const [choseScreenActive, setChoseScreenActive] = useState<boolean>(true)
+    const [navigationModeActive, setNavigationModeActive] = useState<boolean>(true)
+    const [addNewScreenMode, setAddNewScreenMode] = useState<boolean>(false)
+
 
     useEffect(() => {
         if (props.location.state) {
@@ -17,13 +19,22 @@ const EditorPage = (props: any) => {
         }
     }, [])
 
-    const handleTypeSelect = (e: any) => {
+    const handleNavigationSelect = (e: any) => {
         setChosenNav(e.target.value)
     }
 
     return <div style={{display: 'flex', flex: 1, flexDirection: 'column'}}>
-        <Toolsbar setChoseScreenActive={setChoseScreenActive} choseScreenActive={choseScreenActive} handleTypeSelect={handleTypeSelect} chosenNav={chosenNav}/>
-        <ScreensList device={device} choseScreenActive={choseScreenActive} chosenNav={chosenNav} setDevice={setDevice}/>
+
+        <Toolsbar
+            setNavigationModeActive={setNavigationModeActive}
+            navigationModeActive={navigationModeActive}
+            handleTypeSelect={handleNavigationSelect}
+            chosenNav={chosenNav}
+            setAddNewScreenMode={setAddNewScreenMode}
+            addNewScreenMode={addNewScreenMode}
+        />
+        <ScreensList device={device} navigationModeActive={navigationModeActive} chosenNav={chosenNav}
+                     setDevice={setDevice}/>
         <Link to={{
             pathname: '/viewer',
             state: {

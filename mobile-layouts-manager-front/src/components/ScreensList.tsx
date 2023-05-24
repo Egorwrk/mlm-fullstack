@@ -1,12 +1,12 @@
 import React from 'react';
-import {Grid} from "@mui/material";
+import {Grid} from '@mui/material';
 
-import ScreenContainer from "./ScreenContainer";
-import {Device, MyScreen} from "../../types";
+import ScreenContainer from './ScreenContainer';
+import {Device, MyScreen} from '../../types';
 
 interface Props {
     device: Device | undefined
-    choseScreenActive: boolean
+    navigationModeActive: boolean
     chosenNav: 'bottomTabs' | 'drawer' | null
     setDevice: React.Dispatch<React.SetStateAction<Device | undefined>>
 }
@@ -104,12 +104,12 @@ const ScreensList = (props: Props) => {
                             <button
                                 className='btnScreenContainer'
                                 onClick={() => addOrDeleteScreenFromNavList(screen.name)}
-                                disabled={props.choseScreenActive}
+                                disabled={props.navigationModeActive}
                             >
                                 <ScreenContainer
                                     device={props.device}
                                     screenContent={screen}
-                                    choseScreenActive={props.choseScreenActive}
+                                    navigationModeActive={props.navigationModeActive}
                                     chosenNav={props.chosenNav}
                                 />
                             </button>

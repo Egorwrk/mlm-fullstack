@@ -6,7 +6,7 @@ import {Device, MyScreen} from "../../types";
 interface Props {
     device: Device | undefined
     screenContent: MyScreen
-    choseScreenActive: boolean
+    navigationModeActive: boolean
     chosenNav: 'bottomTabs' | 'drawer' | null
     navBtnPress?: (screenName: string) => void
 }
@@ -29,7 +29,7 @@ const ScreenContainer = (props: Props) => {
                         <button
                             className='drawerBtn'
                             onClick={() => setDrawerNavMenuShow(!drawerNavMenuShow)}
-                            disabled={!props.choseScreenActive}
+                            disabled={!props.navigationModeActive}
                         >D
                         </button>
                     </div>
@@ -61,7 +61,7 @@ const ScreenContainer = (props: Props) => {
                                 <button
                                     key={screenName}
                                     className='bottomTabContainer'
-                                    disabled={!props.choseScreenActive}
+                                    disabled={!props.navigationModeActive}
                                     onClick={() => props.navBtnPress ? props.navBtnPress(screenName) : null}
                                 >
                                     <p className='tabText'>{screenName}</p>

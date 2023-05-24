@@ -4,7 +4,7 @@ import {List, ListItem} from '@mui/material';
 
 import 'assets/ViewerPage.css';
 import ScreenContainer from 'components/ScreenContainer';
-import {Device} from "../../../types";
+import {Device} from '../../../types';
 
 const ViewerPage = (props: any) => {
     const [device, setDevice] = useState<Device>()
@@ -51,7 +51,7 @@ const ViewerPage = (props: any) => {
                             <p>prev</p>
                         </button>
                         <ScreenContainer device={device} screenContent={device.screens[chosenScreen]}
-                                         choseScreenActive={true} chosenNav={null} navBtnPress={navBtnPress}/>
+                                         navigationModeActive={true} chosenNav={null} navBtnPress={navBtnPress}/>
                         <button
                             className='btnsPrevNextScreen'
                             onClick={() => {
@@ -79,7 +79,7 @@ const ViewerPage = (props: any) => {
                                 <ScreenContainer
                                     device={device}
                                     screenContent={screen}
-                                    choseScreenActive={true}
+                                    navigationModeActive={true}
                                     chosenNav={null}
                                 />
                             </ListItem>
