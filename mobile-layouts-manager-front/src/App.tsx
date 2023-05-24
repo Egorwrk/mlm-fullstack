@@ -8,12 +8,15 @@ import NavBar from 'components/NavBar';
 import ViewerPage from 'pages/ViewerPage/ViewerPage';
 import AuthorizationPage from 'pages/AuthorizationPage/AuthorizationPage';
 import OnboardingPage from 'pages/OnboardingPage/OnboardingPage';
+import {Provider} from "react-redux";
+import {store} from "./redux/redux";
 
 function App() {
     const [logToggle, setLogToggle] = useState<boolean>(false);
 
     return (
         <BrowserRouter>
+            <Provider store={store}>
             <div className='App'>
                 <div className='topBar'>
                     <NavBar/>
@@ -32,6 +35,7 @@ function App() {
                     </div>
                 </div>
             </div>
+            </Provider>
         </BrowserRouter>
     );
 }

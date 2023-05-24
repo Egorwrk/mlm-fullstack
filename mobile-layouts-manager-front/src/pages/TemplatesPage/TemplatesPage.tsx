@@ -1,22 +1,24 @@
 import React, {useEffect, useState} from 'react';
 
-import axios from "axios";
 import {Grid} from "@mui/material";
+import {useDispatch, useSelector} from "react-redux";
 
 import 'assets/TemplatesPage.css';
+import {RootState} from "redux/redux";
+import {setTemplates} from "redux/templatesSlice";
 import TemplateViewer from 'components/TemplateViewer';
-import {defaultTemplate} from 'assets/tempConstants';
 import CreateNewTemplateModal from 'components/CreateNewTemplateModal';
 import {Template} from '../../../types';
+import {axiosApi} from "assets/axiosInstance";
 
 const TemplatesPage = () => {
-    const [templates, setTemplates] = useState<Template[]>([]);
     const [showNewTemplateModalCreator, setShowNewTemplateModalCreator] = useState<boolean>(false);
-    const [newTemplate, setNewTemplate] = useState<Template>(defaultTemplate);
+    const templates: Template[] = useSelector((state: RootState) => state.templates.templates)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        axios.get('http://localhost/templates', {withCredentials: true}).then((templates) => {
-            setTemplates(templates.data[0] ? templates.data : [])
+        axiosApi.getTemplates().then((res) => {
+            dispatch(setTemplates(res))
         })
     }, [])
 
@@ -24,10 +26,7 @@ const TemplatesPage = () => {
         {showNewTemplateModalCreator
             ? <CreateNewTemplateModal
                 setShowNewTemplateModalCreator={setShowNewTemplateModalCreator}
-                newTemplate={newTemplate}
                 templates={templates}
-                setTemplates={setTemplates}
-                setNewTemplate={setNewTemplate}
             />
             : null
         }
