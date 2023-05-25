@@ -1,19 +1,18 @@
 import React, {useEffect, useState} from 'react';
-
-import {Grid} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
+import {Grid} from '@mui/material';
+import {useDispatch, useSelector} from 'react-redux';
 
 import 'assets/TemplatesPage.css';
-import {RootState} from "redux/redux";
-import {setTemplates} from "redux/templatesSlice";
+import {RootState} from 'redux/redux';
+import {setTemplates} from 'redux/templatesSlice';
 import TemplateViewer from 'components/TemplateViewer';
 import CreateNewTemplateModal from 'components/CreateNewTemplateModal';
+import {axiosApi} from 'assets/axiosInstance';
 import {Template} from '../../../types';
-import {axiosApi} from "assets/axiosInstance";
 
 const TemplatesPage = () => {
     const [showNewTemplateModalCreator, setShowNewTemplateModalCreator] = useState<boolean>(false);
-    const templates: Template[] = useSelector((state: RootState) => state.templates.templates)
+    const templates: Template[] = useSelector((state: RootState) => state.templatesReducer.templates)
     const dispatch = useDispatch()
 
     useEffect(() => {

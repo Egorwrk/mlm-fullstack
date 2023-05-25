@@ -4,7 +4,7 @@ export interface Template {
 }
 
 export interface Devices {
-    phone: Device | null
+    phone: Device
     tablet: Device | null
     miniPhone: Device | null
 }
@@ -26,3 +26,5 @@ export interface Nav {
     bottomTabs: string[] | null
     drawer: string[] | null
 }
+
+export type EditorModeSwitcherType = 'navigator' | 'newScreen' | 'multisetMode' | null

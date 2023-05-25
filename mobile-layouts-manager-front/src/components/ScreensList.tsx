@@ -1,22 +1,26 @@
 import React from 'react';
 import {Grid} from '@mui/material';
+import {useDispatch} from 'react-redux';
 
-import ScreenContainer from './ScreenContainer';
-import {Device, MyScreen} from '../../types';
+import ScreenContainer from 'components/ScreenContainer';
+import {setDevice} from 'redux/workingDeviceSlice';
+import {Device, EditorModeSwitcherType, MyScreen} from '../../types';
 
 interface Props {
-    device: Device | undefined
-    navigationModeActive: boolean
+    device: Device
+    editorModeSwitcher: EditorModeSwitcherType
     chosenNav: 'bottomTabs' | 'drawer' | null
-    setDevice: React.Dispatch<React.SetStateAction<Device | undefined>>
 }
 
 const ScreensList = (props: Props) => {
+    const dispatch = useDispatch()
+
     const addOrDeleteScreenFromNavList = (name: string) => {
         if (props.device) {
             navigationEditor(props.chosenNav === 'bottomTabs' ? props.device.nav.bottomTabs : props.device.nav.drawer, name)
         }
     }
+
 
     const navigationEditor = (updatedNavigation: string[] | null, name: string) => {
         if (updatedNavigation) {
@@ -36,15 +40,15 @@ const ScreensList = (props: Props) => {
         } else {
             updatedNavigation = [name]
         }
-        props.setDevice({
-            height: props.device!.height,
-            width: props.device!.width,
+        dispatch(setDevice({
+            height: props.device.height,
+            width: props.device.width,
             nav: {
-                bottomTabs: props.chosenNav === 'bottomTabs' ? updatedNavigation : props.device!.nav.bottomTabs,
-                drawer: props.chosenNav === 'bottomTabs' ? props.device!.nav.drawer : updatedNavigation,
+                bottomTabs: props.chosenNav === 'bottomTabs' ? updatedNavigation : props.device.nav.bottomTabs,
+                drawer: props.chosenNav === 'bottomTabs' ? props.device.nav.drawer : updatedNavigation,
             },
             screens: screenUpdate(updatedNavigation, name)
-        })
+        }))
     }
 
     const filterNavList = (navList: string[], name: string) => {
@@ -54,7 +58,7 @@ const ScreensList = (props: Props) => {
     }
 
     const screenUpdate = (updatedNavigation: string[] | null, name: string) => {
-        return props.device!.screens.map((screen): MyScreen => {
+        return props.device.screens.map((screen): MyScreen => {
             if (screen.name === name && updatedNavigation && updatedNavigation.length > 0) {
                 for (let i = 0; i < updatedNavigation.length; i++) {
                     if (updatedNavigation[i] === name) {
@@ -91,7 +95,7 @@ const ScreensList = (props: Props) => {
 
     return (
         <Grid container>
-            {props.device
+            {props.device.screens
                 ? props.device.screens.map((screen: MyScreen) => {
                     return (
                         <Grid
@@ -104,12 +108,12 @@ const ScreensList = (props: Props) => {
                             <button
                                 className='btnScreenContainer'
                                 onClick={() => addOrDeleteScreenFromNavList(screen.name)}
-                                disabled={props.navigationModeActive}
+                                disabled={!props.editorModeSwitcher}
                             >
                                 <ScreenContainer
                                     device={props.device}
                                     screenContent={screen}
-                                    navigationModeActive={props.navigationModeActive}
+                                    editorModeSwitcher={props.editorModeSwitcher}
                                     chosenNav={props.chosenNav}
                                 />
                             </button>

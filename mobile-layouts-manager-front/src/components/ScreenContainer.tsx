@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 
 import 'assets/Components.css';
-import {Device, MyScreen} from "../../types";
+import {Device, EditorModeSwitcherType, MyScreen} from '../../types';
 
 interface Props {
     device: Device | undefined
     screenContent: MyScreen
-    navigationModeActive: boolean
+    editorModeSwitcher: EditorModeSwitcherType
     chosenNav: 'bottomTabs' | 'drawer' | null
     navBtnPress?: (screenName: string) => void
 }
@@ -29,7 +29,7 @@ const ScreenContainer = (props: Props) => {
                         <button
                             className='drawerBtn'
                             onClick={() => setDrawerNavMenuShow(!drawerNavMenuShow)}
-                            disabled={!props.navigationModeActive}
+                            disabled={!!props.editorModeSwitcher}
                         >D
                         </button>
                     </div>
@@ -61,7 +61,7 @@ const ScreenContainer = (props: Props) => {
                                 <button
                                     key={screenName}
                                     className='bottomTabContainer'
-                                    disabled={!props.navigationModeActive}
+                                    disabled={!!props.editorModeSwitcher}
                                     onClick={() => props.navBtnPress ? props.navBtnPress(screenName) : null}
                                 >
                                     <p className='tabText'>{screenName}</p>

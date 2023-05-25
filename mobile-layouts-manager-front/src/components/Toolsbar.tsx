@@ -1,59 +1,68 @@
-import React from 'react';
-import {MenuItem, Select} from '@mui/material';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+
+import ToolsbarSelectors from 'components/ToolsbarSelectors';
+import ToolsbarButtons from 'components/ToolsbarButtons';
+import {RootState} from 'redux/redux';
+import {addScreen} from 'redux/workingDeviceSlice';
+import {emptyPhoneScreen} from 'assets/emptyMockups';
+import {EditorModeSwitcherType} from '../../types';
 
 interface Props {
-    setNavigationModeActive: React.Dispatch<React.SetStateAction<boolean>>
-    navigationModeActive: boolean
+    setEditorModeSwitcher: React.Dispatch<React.SetStateAction<EditorModeSwitcherType>>
+    editorModeSwitcher: EditorModeSwitcherType
     handleTypeSelect: (e: any) => void
     chosenNav: 'bottomTabs' | 'drawer' | null
-    selectMultipleScreens?: any
-    setAddNewScreenMode: React.Dispatch<React.SetStateAction<boolean>>
-    addNewScreenMode: boolean
 }
 
 const Toolsbar = (props: Props) => {
-    return (
-        <div className='toolsbar'>
-            <div className='toolsbarItem'>
-                <button className='toolsbarItemBtn' onClick={() => props.setNavigationModeActive(false)}>
-                    <p>N</p>
-                </button>
-            </div>
-            <div className='toolsbarItem'>
-                <button className='toolsbarItemBtn' onClick={() => props.setAddNewScreenMode(true)}>
-                    <p>NS</p>
-                </button>
-            </div>
-            <div className='toolsbarItem'>
-                <button className='toolsbarItemBtn' onClick={() => props.selectMultipleScreens(false)}>
-                    <p>MS</p>
-                </button>
-            </div>
-            <div className='toolsbarItem'/>
-            <div className='toolsbarItem'/>
-            <div className='toolsbarItem'/>
-            <div className='toolsbarItem'/>
-            <div className='toolsbarItem'/>
+    const [screenName, setScreenName] = useState<string>('')
+    const workingDevice = useSelector((state: RootState) => state.workingDeviceReducer.workingDevice)
+    const dispatch = useDispatch()
 
-            {!props.navigationModeActive
-                ? <div className='select'>
-                    <Select onChange={props.handleTypeSelect} value={props.chosenNav} style={{height: 30}}>
-                        <MenuItem value={'bottomTabs'}>BottomTabs</MenuItem>
-                        <MenuItem value={'drawer'}>Drawer</MenuItem>
-                    </Select>
-                </div>
-                : null
+    const okButtonPressed = () => {
+        if (props.editorModeSwitcher === 'newScreen' && screenName) {
+            let screenWithThisNameAlreadyExist = false
+            for (let i = 0; i < workingDevice.screens.length; i++) {
+                if (workingDevice.screens[i].name === screenName) {
+                    screenWithThisNameAlreadyExist = true
+                }
             }
+            if (!screenWithThisNameAlreadyExist) {
+                dispatch(addScreen({...emptyPhoneScreen, name: screenName}))
+                setScreenName('')
+                props.setEditorModeSwitcher(null)
+            } else {
+                alert('screen with this name already exist')
+            }
+
+        }
+        if (props.editorModeSwitcher === 'navigator') {
+            props.setEditorModeSwitcher(null)
+        }
+    }
+
+    return (
+        <body className='toolsbar'>
+            <ToolsbarButtons setEditorModeSwitcher={props.setEditorModeSwitcher}/>
+
+            <ToolsbarSelectors
+                editorModeSwitcher={props.editorModeSwitcher}
+                chosenNav={props.chosenNav}
+                handleTypeSelect={props.handleTypeSelect}
+                screenName={screenName}
+                setScreenName={setScreenName}
+            />
 
             <div className='prevOkBtnSeparator'/>
 
-            {!props.navigationModeActive
+            {props.editorModeSwitcher
                 ? <button
                     className='okButton'
-                    onClick={() => props.setNavigationModeActive(true)}>Ok</button>
+                    onClick={() => okButtonPressed()}>Ok</button>
                 : null
             }
-        </div>
+        </body>
     );
 };
 

@@ -1,21 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 
 import 'assets/EditorPage.css';
 import ScreensList from 'components/ScreensList';
 import Toolsbar from 'components/Toolsbar';
-import {Device} from '../../../types';
+import {RootState} from 'redux/redux';
+import {setDevice} from 'redux/workingDeviceSlice';
+import {EditorModeSwitcherType} from '../../../types';
 
 const EditorPage = (props: any) => {
-    const [device, setDevice] = useState<Device>()
     const [chosenNav, setChosenNav] = useState<'bottomTabs' | 'drawer' | null>('bottomTabs')
-    const [navigationModeActive, setNavigationModeActive] = useState<boolean>(true)
-    const [addNewScreenMode, setAddNewScreenMode] = useState<boolean>(false)
-
+    const [editorModeSwitcher, setEditorModeSwitcher] = useState<EditorModeSwitcherType>(null)
+    const device = useSelector((state: RootState) => state.workingDeviceReducer.workingDevice)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (props.location.state) {
-            setDevice(props.location.state.device)
+            dispatch(setDevice(props.location.state.device))
         }
     }, [])
 
@@ -24,21 +26,20 @@ const EditorPage = (props: any) => {
     }
 
     return <div style={{display: 'flex', flex: 1, flexDirection: 'column'}}>
-
         <Toolsbar
-            setNavigationModeActive={setNavigationModeActive}
-            navigationModeActive={navigationModeActive}
+            setEditorModeSwitcher={setEditorModeSwitcher}
+            editorModeSwitcher={editorModeSwitcher}
             handleTypeSelect={handleNavigationSelect}
             chosenNav={chosenNav}
-            setAddNewScreenMode={setAddNewScreenMode}
-            addNewScreenMode={addNewScreenMode}
         />
-        <ScreensList device={device} navigationModeActive={navigationModeActive} chosenNav={chosenNav}
-                     setDevice={setDevice}/>
+        {device
+            ? <ScreensList device={device} editorModeSwitcher={editorModeSwitcher} chosenNav={chosenNav}/>
+            : null
+        }
         <Link to={{
             pathname: '/viewer',
             state: {
-                device: device,
+                device: device ? device : null,
             }
         }}>
             <p>View</p>

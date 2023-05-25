@@ -51,7 +51,7 @@ const ViewerPage = (props: any) => {
                             <p>prev</p>
                         </button>
                         <ScreenContainer device={device} screenContent={device.screens[chosenScreen]}
-                                         navigationModeActive={true} chosenNav={null} navBtnPress={navBtnPress}/>
+                                         editorModeSwitcher={null} chosenNav={null} navBtnPress={navBtnPress}/>
                         <button
                             className='btnsPrevNextScreen'
                             onClick={() => {
@@ -79,7 +79,7 @@ const ViewerPage = (props: any) => {
                                 <ScreenContainer
                                     device={device}
                                     screenContent={screen}
-                                    navigationModeActive={true}
+                                    editorModeSwitcher={null}
                                     chosenNav={null}
                                 />
                             </ListItem>
