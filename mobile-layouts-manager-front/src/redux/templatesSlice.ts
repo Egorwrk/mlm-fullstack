@@ -1,6 +1,6 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {Template} from "../../types";
+import {Template} from '../../types';
 
 const templatesSlice = createSlice({
     name: 'templates',
