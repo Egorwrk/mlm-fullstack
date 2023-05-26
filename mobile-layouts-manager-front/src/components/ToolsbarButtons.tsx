@@ -22,7 +22,7 @@ const ToolsbarButtons = (props: Props) => {
             </span>
             <span className='toolsbarItem'>
                 <button className='toolsbarItemBtn' onClick={() => props.setEditorModeSwitcher('multisetMode')}>
-                    MS
+                    CS
                 </button>
             </span>
             <span className='toolsbarItem'/>

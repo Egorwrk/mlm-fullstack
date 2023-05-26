@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 
-import {useDispatch} from "react-redux";
-import {addNewTemplate} from "redux/templatesSlice";
+import {useDispatch} from 'react-redux';
+import {addNewTemplate} from 'redux/templatesSlice';
 
-import {defaultTemplate} from "assets/tempConstants";
-import {axiosApi} from "assets/axiosInstance";
-import {Template} from "../../types";
+import {axiosApi} from 'assets/axiosInstance';
+import {emptyTemplate} from 'assets/emptyMockups';
+import {Template} from '../../types';
 
 interface Props {
     setShowNewTemplateModalCreator: React.Dispatch<React.SetStateAction<boolean>>
@@ -13,11 +13,11 @@ interface Props {
 }
 
 const CreateNewTemplateModal = (props: Props) => {
-    const [newTemplate, setNewTemplate] = useState<Template>(defaultTemplate);
+    const [newTemplate, setNewTemplate] = useState<Template>(emptyTemplate);
     const dispatch = useDispatch()
 
     const saveTemplate = () => {
-        if (newTemplate.name && newTemplate.devices.phone!.screens[0].name) {
+        if (newTemplate.name && newTemplate.screens[0].name) {
             axiosApi.setTemplatesServer([...props.templates, newTemplate]).then((data) => {
                 if (data === 'successful save') {
                     dispatch(addNewTemplate(newTemplate))
@@ -37,23 +37,16 @@ const CreateNewTemplateModal = (props: Props) => {
         )
     }
 
-    const changeScreenName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const changeScreenChosenStatusName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setNewTemplate(
             {
                 ...newTemplate,
-                devices: {
-                    phone: {
-                        ...newTemplate.devices.phone!,
-                        screens: [
-                            {
-                                ...newTemplate.devices.phone!.screens[0],
-                                name: event.target.value
-                            }
-                        ]
-                    },
-                    tablet: null,
-                    miniPhone: null
-                }
+                screens: [
+                    {
+                        ...newTemplate.screens[0],
+                        name: event.target.value
+                    }
+                ]
             }
         )
     }
@@ -76,15 +69,16 @@ const CreateNewTemplateModal = (props: Props) => {
                     />
                     <input
                         className='templateInputField'
-                        value={newTemplate.devices.phone!.screens[0].name}
+                        value={newTemplate.screens[0].name}
                         placeholder={'First screen name'}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => changeScreenName(event)}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => changeScreenChosenStatusName(event)}
                     />
                     <span className='templateModalSeparator'/>
                     <button
                         className='templateModalSaveBtn'
                         onClick={() => saveTemplate()}
-                    >save</button>
+                    >save
+                    </button>
                 </div>
             </div>
         </div>

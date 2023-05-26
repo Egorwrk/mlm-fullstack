@@ -1,24 +1,23 @@
 import React, {useEffect, useState} from 'react';
-
 import {List, ListItem} from '@mui/material';
 
 import 'assets/ViewerPage.css';
 import ScreenContainer from 'components/ScreenContainer';
-import {Device} from '../../../types';
+import {Template} from '../../../types';
 
 const ViewerPage = (props: any) => {
-    const [device, setDevice] = useState<Device>()
+    const [template, setTemplate] = useState<Template>()
     const [chosenScreen, setChosenScreen] = useState<number | null>(null)
 
     useEffect(() => {
-        setDevice(props.location.state.device)
+        setTemplate(props.location.state.template)
     })
 
     const navBtnPress = (screenName: string) => {
         let screenIndex = null
-        if (device) {
-            for (let i = 0; i < device.screens.length; i++) {
-                if (device.screens[i].name === screenName) {
+        if (template) {
+            for (let i = 0; i < template.screens.length; i++) {
+                if (template.screens[i].name === screenName) {
                     screenIndex = i
                 }
             }
@@ -28,7 +27,7 @@ const ViewerPage = (props: any) => {
 
     return (
         <div className='viewerPageContainer'>
-            {device && (chosenScreen || chosenScreen === 0)
+            {template && (chosenScreen || chosenScreen === 0)
                 ? <div className='modalScreenViewer'>
                     <span className='topPanel'>
                         <button
@@ -42,7 +41,7 @@ const ViewerPage = (props: any) => {
                             className='btnsPrevNextScreen'
                             onClick={() => {
                                 if (chosenScreen === 0) {
-                                    setChosenScreen(device.screens.length - 1)
+                                    setChosenScreen(template.screens.length - 1)
                                 } else {
                                     setChosenScreen(chosenScreen - 1)
                                 }
@@ -50,12 +49,12 @@ const ViewerPage = (props: any) => {
                         >
                             <p>prev</p>
                         </button>
-                        <ScreenContainer device={device} screenContent={device.screens[chosenScreen]}
-                                         editorModeSwitcher={null} chosenNav={null} navBtnPress={navBtnPress}/>
+                        <ScreenContainer template={template} screenContent={template.screens[chosenScreen]}
+                                         editorModeSwitcher={null} chosenNavigator={null} navigatorBtnPress={navBtnPress}/>
                         <button
                             className='btnsPrevNextScreen'
                             onClick={() => {
-                                if (chosenScreen === device?.screens.length - 1) {
+                                if (chosenScreen === template?.screens.length - 1) {
                                     setChosenScreen(0)
                                 } else {
                                     setChosenScreen(chosenScreen + 1)
@@ -70,17 +69,17 @@ const ViewerPage = (props: any) => {
             }
 
             <List className='screensContainer'>
-                {device
-                    ? device.screens.map((screen, index) => {
+                {template
+                    ? template.screens.map((screen, index) => {
                         return (
                             <ListItem key={screen.name} button={true} onClick={() => {
                                 setChosenScreen(index)
                             }}>
                                 <ScreenContainer
-                                    device={device}
+                                    template={template}
                                     screenContent={screen}
                                     editorModeSwitcher={null}
-                                    chosenNav={null}
+                                    chosenNavigator={null}
                                 />
                             </ListItem>
                         )

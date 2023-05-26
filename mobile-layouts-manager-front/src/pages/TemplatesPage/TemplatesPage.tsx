@@ -33,7 +33,7 @@ const TemplatesPage = () => {
         <div className='myTemplates'>
             <Grid container>
                 {templates
-                    ? templates.map((template: Template) => {
+                    ? templates.map((template: Template, index: number) => {
                         return (
                             <Grid
                                 container
@@ -42,7 +42,7 @@ const TemplatesPage = () => {
                                 xs={4}
                                 className='gridScreenContainer'
                             >
-                                {TemplateViewer(template)}
+                                {TemplateViewer(template, index)}
                             </Grid>
                         )
                     })

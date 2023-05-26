@@ -6,40 +6,48 @@ import 'assets/EditorPage.css';
 import ScreensList from 'components/ScreensList';
 import Toolsbar from 'components/Toolsbar';
 import {RootState} from 'redux/redux';
-import {setDevice} from 'redux/workingDeviceSlice';
-import {EditorModeSwitcherType} from '../../../types';
+import {axiosApi} from 'assets/axiosInstance';
+import {setTemplates} from 'redux/templatesSlice';
+import {EditorModeSwitcherType, Template} from '../../../types';
 
 const EditorPage = (props: any) => {
-    const [chosenNav, setChosenNav] = useState<'bottomTabs' | 'drawer' | null>('bottomTabs')
+    const template: Template = useSelector((state: RootState) => {
+        return state.templatesReducer.templates[props.location.state.index]
+    })
+    const [chosenNavigator, setChosenNavigator] = useState<'bottomTabs' | 'drawer' | null>('bottomTabs')
     const [editorModeSwitcher, setEditorModeSwitcher] = useState<EditorModeSwitcherType>(null)
-    const device = useSelector((state: RootState) => state.workingDeviceReducer.workingDevice)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (props.location.state) {
-            dispatch(setDevice(props.location.state.device))
+        if (!template) {
+            axiosApi.getTemplates().then((res) => {
+                dispatch(setTemplates(res))
+            })
         }
     }, [])
 
     const handleNavigationSelect = (e: any) => {
-        setChosenNav(e.target.value)
+        setChosenNavigator(e.target.value)
     }
 
     return <div style={{display: 'flex', flex: 1, flexDirection: 'column'}}>
         <Toolsbar
+            template={template}
             setEditorModeSwitcher={setEditorModeSwitcher}
             editorModeSwitcher={editorModeSwitcher}
             handleTypeSelect={handleNavigationSelect}
-            chosenNav={chosenNav}
+            chosenNav={chosenNavigator}
+            templateIndex={props.location.state.index}
         />
-        {device
-            ? <ScreensList device={device} editorModeSwitcher={editorModeSwitcher} chosenNav={chosenNav}/>
+        {template
+            ? <ScreensList template={template} editorModeSwitcher={editorModeSwitcher} chosenNavigator={chosenNavigator}
+                           templateIndex={props.location.state.index}/>
             : null
         }
         <Link to={{
             pathname: '/viewer',
             state: {
-                device: device ? device : null,
+                template: template
             }
         }}>
             <p>View</p>

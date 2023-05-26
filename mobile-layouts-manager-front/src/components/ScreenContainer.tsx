@@ -1,26 +1,26 @@
 import React, {useState} from 'react';
 
 import 'assets/Components.css';
-import {Device, EditorModeSwitcherType, MyScreen} from '../../types';
+import {EditorModeSwitcherType, MyScreen, Template} from '../../types';
 
 interface Props {
-    device: Device | undefined
+    template: Template
     screenContent: MyScreen
     editorModeSwitcher: EditorModeSwitcherType
-    chosenNav: 'bottomTabs' | 'drawer' | null
-    navBtnPress?: (screenName: string) => void
+    chosenNavigator: 'bottomTabs' | 'drawer' | null
+    navigatorBtnPress?: (screenName: string) => void
 }
 
 const ScreenContainer = (props: Props) => {
-    const [drawerNavMenuShow, setDrawerNavMenuShow] = useState<boolean>(false)
+    const [drawerNavigatorMenuShow, setDrawerNavigatorMenuShow] = useState<boolean>(false)
     return (
         <div className='screenContainer'>
             <p>{props.screenContent.name}</p>
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                height: props.device?.height,
-                width: props.device?.width,
+                height: props.template.height,
+                width: props.template.width,
                 background: props.screenContent ? props.screenContent.bc : 'transparent'
             }}>
 
@@ -28,21 +28,21 @@ const ScreenContainer = (props: Props) => {
                     <div className='screenTopBar'>
                         <button
                             className='drawerBtn'
-                            onClick={() => setDrawerNavMenuShow(!drawerNavMenuShow)}
+                            onClick={() => setDrawerNavigatorMenuShow(!drawerNavigatorMenuShow)}
                             disabled={!!props.editorModeSwitcher}
                         >D
                         </button>
                     </div>
                     <div className='screenContentWrapper'>
-                        {drawerNavMenuShow
+                        {drawerNavigatorMenuShow
                             ? <div className='leftNavMenuContainer'>
-                                {props.screenContent && props.screenContent.nav.drawer
+                                {props.screenContent && props.screenContent.navigator.drawer
                                     ? <div className='leftNavMenu'>
-                                        {props.screenContent.nav.drawer.map((screenName) => {
+                                        {props.screenContent.navigator.drawer.map((screenName) => {
                                             return <button
                                                 className='drawerNavBtn'
                                                 key={screenName}
-                                                onClick={() => props.navBtnPress ? props.navBtnPress(screenName) : null}
+                                                onClick={() => props.navigatorBtnPress ? props.navigatorBtnPress(screenName) : null}
                                             >{screenName}</button>
                                         })}
                                     </div>
@@ -54,15 +54,15 @@ const ScreenContainer = (props: Props) => {
                     </div>
                 </div>
 
-                {props.screenContent && props.screenContent.nav.bottomTabs
+                {props.screenContent && props.screenContent.navigator.bottomTabs
                     ? <div className='bottomTabsContainer'>
-                        {props.screenContent.nav.bottomTabs.map((screenName) => {
+                        {props.screenContent.navigator.bottomTabs.map((screenName) => {
                             return (
                                 <button
                                     key={screenName}
                                     className='bottomTabContainer'
                                     disabled={!!props.editorModeSwitcher}
-                                    onClick={() => props.navBtnPress ? props.navBtnPress(screenName) : null}
+                                    onClick={() => props.navigatorBtnPress ? props.navigatorBtnPress(screenName) : null}
                                 >
                                     <p className='tabText'>{screenName}</p>
                                 </button>

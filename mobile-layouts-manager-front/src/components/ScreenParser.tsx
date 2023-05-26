@@ -1,23 +1,22 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React from 'react';
+import {Link} from 'react-router-dom';
 
-import {Device, MyScreen} from "../../types";
+import {Template} from '../../types';
 
-const ScreenParser = (name: string, device: Device, screen: MyScreen) => {
+const ScreenParser = (template: Template, index: number) => {
     return (
         <Link to={{
             pathname: '/editor',
             state: {
-                name: name,
-                device: device,
-            }
+                index: index
+            },
         }}>
-            <p>{name}</p>
+            <p>{template.name}</p>
             <div
                 style={{
-                    height: device.height,
-                    width: device.width,
-                    backgroundColor: screen.bc,
+                    height: template.height,
+                    width: template.width,
+                    backgroundColor: template.screens[0].bc,
                 }}
             ></div>
         </Link>

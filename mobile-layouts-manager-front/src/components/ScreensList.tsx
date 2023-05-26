@@ -3,88 +3,89 @@ import {Grid} from '@mui/material';
 import {useDispatch} from 'react-redux';
 
 import ScreenContainer from 'components/ScreenContainer';
-import {setDevice} from 'redux/workingDeviceSlice';
-import {Device, EditorModeSwitcherType, MyScreen} from '../../types';
+import {changeGeneralNavigation, changeScreenChosenStatus} from 'redux/templatesSlice';
+import {EditorModeSwitcherType, MyScreen, Template} from '../../types';
 
 interface Props {
-    device: Device
+    template: Template
     editorModeSwitcher: EditorModeSwitcherType
-    chosenNav: 'bottomTabs' | 'drawer' | null
+    chosenNavigator: 'bottomTabs' | 'drawer' | null
+    templateIndex: number
 }
 
 const ScreensList = (props: Props) => {
     const dispatch = useDispatch()
 
-    const addOrDeleteScreenFromNavList = (name: string) => {
-        if (props.device) {
-            navigationEditor(props.chosenNav === 'bottomTabs' ? props.device.nav.bottomTabs : props.device.nav.drawer, name)
+    const addOrDeleteScreenFromNavigatorList = (name: string) => {
+        if (props.template) {
+            navigatorEditor(props.chosenNavigator === 'bottomTabs' ? props.template.navigator.bottomTabs : props.template.navigator.drawer, name)
         }
     }
 
-
-    const navigationEditor = (updatedNavigation: string[] | null, name: string) => {
-        if (updatedNavigation) {
-            if (updatedNavigation.length === (filterNavList(updatedNavigation, name)).length) {
-                if (props.chosenNav === 'bottomTabs' && updatedNavigation.length >= 5) {
+    const navigatorEditor = (tmpNavigatorsList: string[] | null, name: string) => {
+        let updatedNavigator = tmpNavigatorsList ? [...tmpNavigatorsList] : null
+        if (updatedNavigator) {
+            if (updatedNavigator.length === (filterNavigatorList(updatedNavigator, name)).length) {
+                if (props.chosenNavigator === 'bottomTabs' && updatedNavigator.length >= 5) {
                     alert('You already have 5 screens')
                 } else {
-                    updatedNavigation.push(name)
+                    updatedNavigator.push(name)
                 }
             } else {
-                if (filterNavList(updatedNavigation, name).length === 0) {
-                    updatedNavigation = null
+                if (filterNavigatorList(updatedNavigator, name).length === 0) {
+                    updatedNavigator = null
                 } else {
-                    updatedNavigation = filterNavList(updatedNavigation, name)
+                    updatedNavigator = filterNavigatorList(updatedNavigator, name)
                 }
             }
+
         } else {
-            updatedNavigation = [name]
+            updatedNavigator = [name]
         }
-        dispatch(setDevice({
-            height: props.device.height,
-            width: props.device.width,
-            nav: {
-                bottomTabs: props.chosenNav === 'bottomTabs' ? updatedNavigation : props.device.nav.bottomTabs,
-                drawer: props.chosenNav === 'bottomTabs' ? props.device.nav.drawer : updatedNavigation,
+        dispatch(changeGeneralNavigation({
+            templateIndex: props.templateIndex,
+            navigator: {
+                bottomTabs: props.chosenNavigator === 'bottomTabs' ? updatedNavigator : props.template.navigator.bottomTabs,
+                drawer: props.chosenNavigator === 'bottomTabs' ? props.template.navigator.drawer : updatedNavigator,
             },
-            screens: screenUpdate(updatedNavigation, name)
+            screens: screenUpdate(updatedNavigator, name)
         }))
     }
 
-    const filterNavList = (navList: string[], name: string) => {
-        return navList.filter((el) => {
+    const filterNavigatorList = (navigatorList: string[], name: string) => {
+        return navigatorList.filter((el) => {
             return el !== name
         })
     }
 
-    const screenUpdate = (updatedNavigation: string[] | null, name: string) => {
-        return props.device.screens.map((screen): MyScreen => {
-            if (screen.name === name && updatedNavigation && updatedNavigation.length > 0) {
-                for (let i = 0; i < updatedNavigation.length; i++) {
-                    if (updatedNavigation[i] === name) {
+    const screenUpdate = (updatedNavigator: string[] | null, name: string) => {
+        return props.template.screens.map((screen): MyScreen => {
+            if (screen.name === name && updatedNavigator && updatedNavigator.length > 0) {
+                for (let i = 0; i < updatedNavigator.length; i++) {
+                    if (updatedNavigator[i] === name) {
                         return {
                             ...screen,
-                            nav: {
-                                bottomTabs: props.chosenNav === 'bottomTabs' ? updatedNavigation : screen.nav.bottomTabs,
-                                drawer: props.chosenNav === 'bottomTabs' ? screen.nav.drawer : updatedNavigation
+                            navigator: {
+                                bottomTabs: props.chosenNavigator === 'bottomTabs' ? updatedNavigator : screen.navigator.bottomTabs,
+                                drawer: props.chosenNavigator === 'bottomTabs' ? screen.navigator.drawer : updatedNavigator
                             }
                         }
                     }
                 }
                 return {
                     ...screen,
-                    nav: {
-                        bottomTabs: props.chosenNav === 'bottomTabs' ? null : screen.nav.bottomTabs,
-                        drawer: props.chosenNav === 'bottomTabs' ? screen.nav.drawer : null
+                    navigator: {
+                        bottomTabs: props.chosenNavigator === 'bottomTabs' ? null : screen.navigator.bottomTabs,
+                        drawer: props.chosenNavigator === 'bottomTabs' ? screen.navigator.drawer : null
                     }
                 }
             }
-            if ((props.chosenNav === 'bottomTabs' && screen.nav.bottomTabs) || (props.chosenNav === 'drawer' && screen.nav.drawer) || screen.name === name) {
+            if ((props.chosenNavigator === 'bottomTabs' && screen.navigator.bottomTabs) || (props.chosenNavigator === 'drawer' && screen.navigator.drawer) || screen.name === name) {
                 return {
                     ...screen,
-                    nav: {
-                        bottomTabs: props.chosenNav === 'bottomTabs' ? updatedNavigation : screen.nav.bottomTabs,
-                        drawer: props.chosenNav === 'bottomTabs' ? screen.nav.drawer : updatedNavigation
+                    navigator: {
+                        bottomTabs: props.chosenNavigator === 'bottomTabs' ? updatedNavigator : screen.navigator.bottomTabs,
+                        drawer: props.chosenNavigator === 'bottomTabs' ? screen.navigator.drawer : updatedNavigator
                     }
                 }
             } else {
@@ -93,10 +94,18 @@ const ScreensList = (props: Props) => {
         })
     }
 
+    const choseThisScreen = (screen: MyScreen, screenIndex: number) => {
+        dispatch(changeScreenChosenStatus({
+            templateIndex: props.templateIndex,
+            screenIndex: screenIndex,
+            screen: screen
+        }))
+    }
+
     return (
         <Grid container>
-            {props.device.screens
-                ? props.device.screens.map((screen: MyScreen) => {
+            {props.template.screens
+                ? props.template.screens.map((screen: MyScreen, screenIndex) => {
                     return (
                         <Grid
                             container
@@ -107,14 +116,15 @@ const ScreensList = (props: Props) => {
                         >
                             <button
                                 className='btnScreenContainer'
-                                onClick={() => addOrDeleteScreenFromNavList(screen.name)}
+                                onClick={() => props.editorModeSwitcher === 'navigator' ? addOrDeleteScreenFromNavigatorList(screen.name) : choseThisScreen(screen, screenIndex)}
                                 disabled={!props.editorModeSwitcher}
+                                style={{background: screen.chosen ? 'yellow' : 'gray'}}
                             >
                                 <ScreenContainer
-                                    device={props.device}
+                                    template={props.template}
                                     screenContent={screen}
                                     editorModeSwitcher={props.editorModeSwitcher}
-                                    chosenNav={props.chosenNav}
+                                    chosenNavigator={props.chosenNavigator}
                                 />
                             </button>
                         </Grid>

@@ -1,28 +1,19 @@
 export interface Template {
     name: string
-    devices: Devices
-}
-
-export interface Devices {
-    phone: Device
-    tablet: Device | null
-    miniPhone: Device | null
-}
-
-export interface Device {
     height: number
     width: number
     screens: MyScreen[]
-    nav: Nav
+    navigator: Navigator
 }
 
 export interface MyScreen {
     name: string
-    nav: Nav
+    navigator: Navigator
     bc: string
+    chosen: boolean
 }
 
-export interface Nav {
+export interface Navigator {
     bottomTabs: string[] | null
     drawer: string[] | null
 }
