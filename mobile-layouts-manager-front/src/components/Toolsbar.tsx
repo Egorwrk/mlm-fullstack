@@ -47,11 +47,14 @@ const Toolsbar = (props: Props) => {
         if (props.editorModeSwitcher === 'navigator') {
             props.setEditorModeSwitcher(null)
         }
+        if (props.editorModeSwitcher === 'multisetMode') {
+            props.setEditorModeSwitcher(null)
+        }
     }
 
     return (
         <body className='toolsbar'>
-            <ToolsbarButtons setEditorModeSwitcher={props.setEditorModeSwitcher}/>
+            <ToolsbarButtons setEditorModeSwitcher={props.setEditorModeSwitcher} templateIndex={props.templateIndex} />
 
             <ToolsbarSelectors
                 editorModeSwitcher={props.editorModeSwitcher}

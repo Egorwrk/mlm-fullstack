@@ -13,8 +13,9 @@ interface Props {
 
 const ScreenContainer = (props: Props) => {
     const [drawerNavigatorMenuShow, setDrawerNavigatorMenuShow] = useState<boolean>(false)
+
     return (
-        <div className='screenContainer'>
+        <body className='screenContainer'>
             <p>{props.screenContent.name}</p>
             <div style={{
                 display: 'flex',
@@ -23,16 +24,15 @@ const ScreenContainer = (props: Props) => {
                 width: props.template.width,
                 background: props.screenContent ? props.screenContent.bc : 'transparent'
             }}>
-
                 <div className='screenContentContainer'>
-                    <div className='screenTopBar'>
+                    <header className='screenTopBar'>
                         <button
                             className='drawerBtn'
                             onClick={() => setDrawerNavigatorMenuShow(!drawerNavigatorMenuShow)}
                             disabled={!!props.editorModeSwitcher}
                         >D
                         </button>
-                    </div>
+                    </header>
                     <div className='screenContentWrapper'>
                         {drawerNavigatorMenuShow
                             ? <div className='leftNavMenuContainer'>
@@ -51,11 +51,25 @@ const ScreenContainer = (props: Props) => {
                             </div>
                             : null
                         }
+                        {props.screenContent.emptyBlocks[0]
+                            ? props.screenContent.emptyBlocks.map((block, index) => {
+                                return <div key={index}
+                                            style={{
+                                                height: block.height,
+                                                width: block.width,
+                                                position: 'relative',
+                                                left: block.left,
+                                                top: block.top,
+                                                border: '1px solid black',
+                                            }}
+                                />
+                            })
+                            : null}
                     </div>
                 </div>
 
                 {props.screenContent && props.screenContent.navigator.bottomTabs
-                    ? <div className='bottomTabsContainer'>
+                    ? <footer className='bottomTabsContainer'>
                         {props.screenContent.navigator.bottomTabs.map((screenName) => {
                             return (
                                 <button
@@ -64,15 +78,15 @@ const ScreenContainer = (props: Props) => {
                                     disabled={!!props.editorModeSwitcher}
                                     onClick={() => props.navigatorBtnPress ? props.navigatorBtnPress(screenName) : null}
                                 >
-                                    <p className='tabText'>{screenName}</p>
+                                    {screenName}
                                 </button>
                             )
                         })}
-                    </div>
+                    </footer>
                     : null
                 }
             </div>
-        </div>
+        </body>
     )
 }
 

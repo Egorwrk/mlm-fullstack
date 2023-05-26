@@ -12,11 +12,22 @@ export const emptyTemplate: Template = {
                 drawer: null
             },
             bc: '#dddddd',
-            chosen: false
+            chosen: false,
+            emptyBlocks: [],
+            textBlocks: [],
+            imageBlocks: [],
+            registrationBlocks: []
         }
     ],
     navigator: {
         bottomTabs: null,
         drawer: null
     }
+}
+
+export const emptyBlock = {
+    height: 100,
+    width: 100,
+    top: 0,
+    left: 0,
 }

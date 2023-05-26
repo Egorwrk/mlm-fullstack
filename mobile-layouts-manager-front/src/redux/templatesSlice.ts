@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
+import {emptyBlock} from 'assets/emptyMockups';
 import {MyScreen, Navigator, Template} from '../../types';
 
 interface changeScreenChosenStatusInterface {
@@ -44,8 +45,19 @@ const templatesSlice = createSlice({
         changeGeneralNavigation(state, action: PayloadAction<changeGeneralNavigationInterface>) {
             state.templates[action.payload.templateIndex].navigator = action.payload.navigator
             state.templates[action.payload.templateIndex].screens = action.payload.screens
-        }
-
+        },
+        addEmptyBlock(state, action: PayloadAction<number>) {
+            state.templates[action.payload].screens = state.templates[action.payload].screens.map(screen => {
+                if (screen.chosen) {
+                    return {
+                        ...screen,
+                        emptyBlocks: [...screen.emptyBlocks, emptyBlock]
+                    }
+                } else {
+                    return screen
+                }
+            })
+        },
     }
 })
 
@@ -56,5 +68,6 @@ export const {
     changeTemplateName,
     changeScreenChosenStatus,
     addNewScreen,
-    changeGeneralNavigation
+    changeGeneralNavigation,
+    addEmptyBlock,
 } = templatesSlice.actions

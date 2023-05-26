@@ -116,7 +116,10 @@ const ScreensList = (props: Props) => {
                         >
                             <button
                                 className='btnScreenContainer'
-                                onClick={() => props.editorModeSwitcher === 'navigator' ? addOrDeleteScreenFromNavigatorList(screen.name) : choseThisScreen(screen, screenIndex)}
+                                onClick={() => props.editorModeSwitcher === 'navigator'
+                                    ? addOrDeleteScreenFromNavigatorList(screen.name)
+                                    : choseThisScreen(screen, screenIndex)
+                                }
                                 disabled={!props.editorModeSwitcher}
                                 style={{background: screen.chosen ? 'yellow' : 'gray'}}
                             >
