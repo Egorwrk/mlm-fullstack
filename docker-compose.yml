@@ -9,9 +9,11 @@ services:
       - ./mobile-layouts-manager-front:/opt/src/app
     ports:
       - "3000:3000"
+    networks:
+      - mlm-net
 
-  php-fpm:
-    container_name: php-fpm
+  server:
+    container_name: server
     build:
       context: .
       dockerfile: dockerfiles/back/Dockerfile
@@ -19,8 +21,10 @@ services:
       - ./mlm-back:/var/www/html
     ports:
       - "3003:3003"
-    links:
-      - mysql
+    networks:
+      - mlm-net
+  #    links:
+  #      - mysql
 
   nginx:
     container_name: nginx
@@ -30,21 +34,57 @@ services:
       - ./nginx:/etc/nginx/conf.d
     ports:
       - "80:80"
-    links:
-      - php-fpm
+    networks:
+      - mlm-net
+  #    links:
+  #      - php-fpm
 
-  mysql:
-    image: mysql:8
-    container_name: mysql
+#  mysql:
+#    image: mysql:8
+#    container_name: mysql
+#    environment:
+#      MYSQL_DATABASE: test2
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: root
+#      MYSQL_ROOT_PASSWORD: root
+#    volumes:
+#      - ./volume/mysql:/var/lib/mysql
+#    ports:
+#      - "3306:3306"
+#    networks:
+#      - mlm-net
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    restart: always
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
+    ports:
+      - "3005:80"
     environment:
-      MYSQL_DATABASE: test2
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - ./volume/mysql:/var/lib/mysql
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_PORT=3306
+    networks:
+      - mlm-net
+
+  db:
+    container_name: db
+    build:
+      context: .
+      dockerfile: ./dockerfiles/database/Dockerfile
+    tty: true
+    entrypoint: [ "sh","startdb.sh" ]
     ports:
       - "3306:3306"
-
+    volumes:
+      - ./volume/mysql:/var/lib/mysql
+    networks:
+      - mlm-net
 volumes:
-  docker: {}
+  docker: { }
+networks:
+  mlm-net:
+    name: mlm-net
+    external: true
