@@ -27,6 +27,7 @@ class Registration
                 $stmt->execute(array(':login' => $login, ':hash_password' => md5($password), ':email' => $email, ':templates' => '{}'));
                 $stmtuser = $this->connect->prepare('SELECT * FROM users WHERE login = :login');
                 $stmtuser->execute(array(':login' => $login));
+                setcookie("login", $login, 0, '/');
                 echo 'registration completed';
                 exit;
             } else {
