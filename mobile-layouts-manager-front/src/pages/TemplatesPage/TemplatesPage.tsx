@@ -17,7 +17,9 @@ const TemplatesPage = () => {
 
     useEffect(() => {
         axiosApi.getTemplates().then((res) => {
-            dispatch(setTemplates(res))
+            if (res !== 'auth error' && res){
+                dispatch(setTemplates(res))
+            }
         })
     }, [])
 

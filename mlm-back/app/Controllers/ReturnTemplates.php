@@ -21,7 +21,7 @@ class ReturnTemplates
             $stmtuser = $this->connect->query($sql);
             $datauser = $stmtuser->fetch(PDO::FETCH_ASSOC);
             if (empty($datauser)) {
-                echo "this user doesn't exists";
+                echo "auth error";
             } else {
                 echo($datauser['templates']);
             }
