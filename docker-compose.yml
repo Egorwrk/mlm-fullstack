@@ -10,41 +10,15 @@ services:
     ports:
       - "3000:3000"
 
-  php-fpm:
-    container_name: php-fpm
+  server:
+    container_name: server
     build:
       context: .
       dockerfile: dockerfiles/back/Dockerfile
     volumes:
       - ./mlm-back:/var/www/html
-    ports:
-      - "3003:3003"
-    links:
-      - mysql
-
-  nginx:
-    container_name: nginx
-    image: nginx
-    volumes:
-      - ./mlm-back:/var/www/html
-      - ./nginx:/etc/nginx/conf.d
-    ports:
-      - "80:80"
-    links:
-      - php-fpm
-
-  mysql:
-    image: mysql:8
-    container_name: mysql
-    environment:
-      MYSQL_DATABASE: test2
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
+      - ./config:/etc/mysql/mysql.conf.d
+      - ./nginx:/etc/nginx/sites-enabled
       - ./volume/mysql:/var/lib/mysql
     ports:
-      - "3306:3306"
-
-volumes:
-  docker: {}
+      - "80:80"

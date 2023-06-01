@@ -1,9 +1,18 @@
-FROM php:8.1-fpm
+FROM ubuntu:latest
 
-RUN apt-get update && docker-php-ext-install pdo_mysql
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get --allow-releaseinfo-change update
+RUN apt-get update -y --fix-missing
+RUN apt-get upgrade -y
+RUN apt-get install -y php
+RUN apt-get install -y php8.1-fpm
+RUN apt-get install -y php-mysql
+RUN apt-get install -y mysql-client
+RUN apt-get install -y mysql-server
+RUN apt-get install -y nginx
 
-WORKDIR /var/www/html
+RUN usermod -d /var/lib/mysql/ mysql
 
-RUN docker-php-ext-install mysqli
+CMD /etc/init.d/php8.1-fpm start -F && service mysql start && nginx -g "daemon off;"
 
-EXPOSE 3003
+EXPOSE 80
