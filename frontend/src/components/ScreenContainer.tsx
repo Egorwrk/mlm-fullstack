@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
-import 'assets/Components.css';
-import {EditorModeSwitcherType, MyScreen, Template} from '../../types';
+import {EditorModeSwitcherType, MyScreen, Template} from 'types';
+import 'css/Components.css';
 
 interface Props {
     template: Template

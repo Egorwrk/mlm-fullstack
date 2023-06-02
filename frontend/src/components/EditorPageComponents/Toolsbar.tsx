@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 
-import ToolsbarSelectors from 'components/ToolsbarSelectors';
-import ToolsbarButtons from 'components/ToolsbarButtons';
-import {emptyTemplate} from 'assets/emptyMockups';
-import {addNewScreen} from 'redux/templatesSlice';
-import {EditorModeSwitcherType, Template} from '../../types';
+import ToolsbarSelectors from 'components/EditorPageComponents/ToolsbarComponents/ToolsbarSelectors';
+import ToolsbarButtons from 'components/EditorPageComponents/ToolsbarComponents/ToolsbarButtons';
+import {emptyTemplate} from 'constants/emptyMockups';
+import {addNewScreen} from 'store/templatesSlice';
+import {EditorModeSwitcherType, Template} from 'types';
 
 interface Props {
     template: Template

@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 
-import 'assets/EditorPage.css';
-import ScreensList from 'components/ScreensList';
-import Toolsbar from 'components/Toolsbar';
-import {RootState} from 'redux/redux';
-import {axiosApi} from 'assets/axiosInstance';
-import {setTemplates} from 'redux/templatesSlice';
-import {EditorModeSwitcherType, Template} from '../../../types';
+import ScreensList from 'components/EditorPageComponents/ScreensList';
+import Toolsbar from 'components/EditorPageComponents/Toolsbar';
+import {RootState} from 'store/store';
+import {axiosApi} from 'api/apiInstance';
+import {setTemplates} from 'store/templatesSlice';
+import {EditorModeSwitcherType, Template} from 'types';
+import 'css/EditorPage.css';
 
 const EditorPage = (props: any) => {
     const template: Template = useSelector((state: RootState) => {

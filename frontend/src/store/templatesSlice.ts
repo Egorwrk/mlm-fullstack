@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {emptyBlock} from 'assets/emptyMockups';
-import {MyScreen, Navigator, Template} from '../../types';
+import {emptyBlock} from 'constants/emptyMockups';
+import {MyScreen, Navigator, Template} from 'types';
 
 interface changeScreenChosenStatusInterface {
     templateIndex: number

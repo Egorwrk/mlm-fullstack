@@ -9,4 +9,4 @@
 /frontend/src/assets/.DS_Store
 /frontend/src/.DS_Store
 /backend/.idea
-/dockerfiles/.DS_Store
+/src/deployConfig.ts

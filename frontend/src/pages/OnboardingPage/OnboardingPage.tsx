@@ -1,8 +1,9 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+
+import 'css/OnboardingPage.css';
 
 require('assets/onboarding.jpg');
-import 'assets/OnboardingPage.css';
-import {Link} from 'react-router-dom';
 
 const OnboardingPage = () => {
 

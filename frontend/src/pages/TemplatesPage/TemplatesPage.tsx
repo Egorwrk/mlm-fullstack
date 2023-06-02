@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {Grid} from '@mui/material';
 import {useDispatch, useSelector} from 'react-redux';
 
-import 'assets/TemplatesPage.css';
-import {RootState} from 'redux/redux';
-import {setTemplates} from 'redux/templatesSlice';
-import TemplateViewer from 'components/TemplateViewer';
-import CreateNewTemplateModal from 'components/CreateNewTemplateModal';
-import {axiosApi} from 'assets/axiosInstance';
-import {Template} from '../../../types';
+import {RootState} from 'store/store';
+import {setTemplates} from 'store/templatesSlice';
+import TemplateViewer from 'components/TemplatesPageComponents/TemplateViewer';
+import CreateNewTemplateModal from 'components/TemplatesPageComponents/CreateNewTemplateModal';
+import {axiosApi} from 'api/apiInstance';
+import {Template} from 'types';
+import 'css/TemplatesPage.css';
 
 const TemplatesPage = () => {
     const [showNewTemplateModalCreator, setShowNewTemplateModalCreator] = useState<boolean>(false);

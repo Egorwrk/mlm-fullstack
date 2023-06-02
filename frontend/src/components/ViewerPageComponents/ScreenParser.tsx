@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import {Template} from '../../types';
+import {Template} from 'types';
 
 const ScreenParser = (template: Template, index: number) => {
     return (

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {List, ListItem} from '@mui/material';
 
-import 'assets/ViewerPage.css';
 import ScreenContainer from 'components/ScreenContainer';
-import {Template} from '../../../types';
+import {Template} from 'types';
+import 'css/ViewerPage.css';
 
 const ViewerPage = (props: any) => {
     const [template, setTemplate] = useState<Template>()

@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import {BrowserRouter, Route} from 'react-router-dom';
+import {Provider} from "react-redux";
 
-import 'assets/App.css';
 import TemplatesPage from 'pages/TemplatesPage/TemplatesPage';
 import EditorPage from 'pages/EditorPage/EditorPage';
 import NavBar from 'components/NavBar';
 import ViewerPage from 'pages/ViewerPage/ViewerPage';
 import AuthorizationPage from 'pages/AuthorizationPage/AuthorizationPage';
 import OnboardingPage from 'pages/OnboardingPage/OnboardingPage';
-import {Provider} from "react-redux";
-import {store} from "./redux/redux";
+import {store} from "store/store";
+import 'css/App.css';
 
 function App() {
     const [logToggle, setLogToggle] = useState<boolean>(false);

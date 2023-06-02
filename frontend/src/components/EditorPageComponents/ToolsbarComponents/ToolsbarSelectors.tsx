@@ -1,8 +1,7 @@
 import React from 'react';
-
 import {MenuItem, Select} from '@mui/material';
 
-import {EditorModeSwitcherType} from '../../types';
+import {EditorModeSwitcherType} from 'types';
 
 interface Props {
     editorModeSwitcher: EditorModeSwitcherType

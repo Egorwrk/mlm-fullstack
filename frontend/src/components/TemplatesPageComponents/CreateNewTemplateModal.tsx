@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-
 import {useDispatch} from 'react-redux';
-import {addNewTemplate} from 'redux/templatesSlice';
 
-import {axiosApi} from 'assets/axiosInstance';
-import {emptyTemplate} from 'assets/emptyMockups';
-import {Template} from '../../types';
+import {addNewTemplate} from 'store/templatesSlice';
+import {emptyTemplate} from 'constants/emptyMockups';
+import {axiosApi} from 'api/apiInstance';
+import {Template} from 'types';
 
 interface Props {
     setShowNewTemplateModalCreator: React.Dispatch<React.SetStateAction<boolean>>

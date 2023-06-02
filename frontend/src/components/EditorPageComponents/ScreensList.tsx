@@ -3,8 +3,8 @@ import {Grid} from '@mui/material';
 import {useDispatch} from 'react-redux';
 
 import ScreenContainer from 'components/ScreenContainer';
-import {changeGeneralNavigation, changeScreenChosenStatus} from 'redux/templatesSlice';
-import {EditorModeSwitcherType, MyScreen, Template} from '../../types';
+import {changeGeneralNavigation, changeScreenChosenStatus} from 'store/templatesSlice';
+import {EditorModeSwitcherType, MyScreen, Template} from 'types';
 
 interface Props {
     template: Template

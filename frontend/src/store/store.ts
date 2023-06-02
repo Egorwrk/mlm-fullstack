@@ -1,6 +1,6 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 
-import templatesSlice from 'redux/templatesSlice';
+import templatesSlice from 'store/templatesSlice';
 
 const rootReducer = combineReducers({
     templatesReducer: templatesSlice,

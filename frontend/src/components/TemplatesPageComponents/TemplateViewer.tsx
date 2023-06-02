@@ -1,7 +1,7 @@
 import React from 'react';
 
-import screenParser from 'components/ScreenParser';
-import {Template} from '../../types';
+import screenParser from 'components/ViewerPageComponents/ScreenParser';
+import {Template} from 'types';
 
 const TemplateViewer = (template: Template, index: number) => {
     return (

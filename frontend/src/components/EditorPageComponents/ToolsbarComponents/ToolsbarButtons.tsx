@@ -1,9 +1,9 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
 
-import 'assets/EditorPage.css'
-import {addEmptyBlock} from 'redux/templatesSlice';
-import {EditorModeSwitcherType} from '../../types';
+import {addEmptyBlock} from 'store/templatesSlice';
+import {EditorModeSwitcherType} from 'types';
+import 'css/EditorPage.css'
 
 interface Props {
     setEditorModeSwitcher: React.Dispatch<React.SetStateAction<EditorModeSwitcherType>>
