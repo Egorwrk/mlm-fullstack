@@ -4,7 +4,7 @@ import qs from 'qs';
 import {Template} from '../../types';
 
 const instance = axios.create({
-    baseURL: 'http://45.12.239.135',
+    baseURL: 'http://45.12.238.141/',
     headers: {'content-type': 'application/x-www-form-urlencoded'},
     withCredentials: true
 });
