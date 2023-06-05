@@ -1,11 +1,11 @@
 import axios from 'axios';
 import qs from 'qs';
 
-import {deployConfig} from 'deployConfig';
+import config from 'deployConfig.json';
 import {Template} from 'types';
 
 const instance = axios.create({
-    baseURL: `${deployConfig.baseUrl}`,
+    baseURL: `${config.deployConfig.baseUrl}`,
     headers: {'content-type': 'application/x-www-form-urlencoded'},
     withCredentials: true
 });

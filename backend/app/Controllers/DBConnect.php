@@ -7,8 +7,8 @@ use PDO, PDOException;
 class DBConnect
 {
     static private $dbhost = '0.0.0.0';
-    static private $dbuser = 'admin1';
-    static private $dbpass = 'admin1';
+    static private $dbuser = 'root';
+    static private $dbpass = 'root';
     static private $dbname = 'users';
 
     public static function connect()

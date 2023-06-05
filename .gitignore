@@ -1,4 +1,6 @@
 /.idea
+/adminer
+/index.nginx-debian.html
 /.DS_Store
 /frontend/node_modules
 /frontend/.npmignore
@@ -8,5 +10,7 @@
 /frontend/.idea
 /frontend/src/assets/.DS_Store
 /frontend/src/.DS_Store
+/frontend/src/deployConfig.json
 /backend/.idea
-/src/deployConfig.ts
+/backend/deployConfig.json
+/backend/.DS_Store
