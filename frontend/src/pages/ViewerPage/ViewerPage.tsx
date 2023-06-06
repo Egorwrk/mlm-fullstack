@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {List, ListItem} from '@mui/material';
+import {useLocation} from 'react-router-dom';
 
 import ScreenContainer from 'components/ScreenContainer';
 import {Template} from 'types';
 import 'css/ViewerPage.css';
 
-const ViewerPage = (props: any) => {
+const ViewerPage = () => {
     const [template, setTemplate] = useState<Template>()
     const [chosenScreen, setChosenScreen] = useState<number | null>(null)
+    const location = useLocation()
 
     useEffect(() => {
-        setTemplate(props.location.state.template)
+        setTemplate(location.state.template)
     })
 
     const navBtnPress = (screenName: string) => {

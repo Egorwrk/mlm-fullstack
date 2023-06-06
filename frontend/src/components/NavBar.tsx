@@ -6,8 +6,7 @@ import 'css/NavBar.css';
 const NavBar = () => {
   return (
     <div className='navBar'>
-      <NavLink className='topBarItm' to='/templates'>my templates</NavLink>
-      <NavLink className='topBarItm' to='/editor'>editor</NavLink>
+      <NavLink className='topBarItm' to='/main/templates'>my templates</NavLink>
     </div>
   );
 };

@@ -8,21 +8,19 @@ require('assets/onboarding.jpg');
 const OnboardingPage = () => {
 
     return (
-        <div className='OnboardingContainer'>
+        <body className='OnboardingContainer'>
             <img src={require('assets/onboarding.jpg')} className='onboardingImage' alt='mobile phone'/>
             <div className='rightMenu'>
-                <p className='text'>
+                <h3>
                     Mobile layouts manager will help in creating mobile application mockups. Here you can assemble a
                     demo screen from the proposed components, as well as share a link to your layout with another person
                     so that he can estimate it
-                </p>
-                <span className='getStartBtnContainer'>
-                    <Link to={{pathname: '/auth',}}>
-                        <p>Get start</p>
-                    </Link>
-                </span>
+                </h3>
+                <Link to={{pathname: '/auth'}} className='getStartBtnContainer'>
+                    Get start
+                </Link>
             </div>
-        </div>
+        </body>
     );
 };
 

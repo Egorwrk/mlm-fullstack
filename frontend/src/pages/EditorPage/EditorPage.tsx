@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 
 import ScreensList from 'components/EditorPageComponents/ScreensList';
@@ -10,9 +10,10 @@ import {setTemplates} from 'store/templatesSlice';
 import {EditorModeSwitcherType, Template} from 'types';
 import 'css/EditorPage.css';
 
-const EditorPage = (props: any) => {
+const EditorPage = () => {
+    const location = useLocation()
     const template: Template = useSelector((state: RootState) => {
-        return state.templatesReducer.templates[props.location.state.index]
+        return state.templatesReducer.templates[location.state.index]
     })
     const [chosenNavigator, setChosenNavigator] = useState<'bottomTabs' | 'drawer' | null>('bottomTabs')
     const [editorModeSwitcher, setEditorModeSwitcher] = useState<EditorModeSwitcherType>(null)
@@ -37,19 +38,16 @@ const EditorPage = (props: any) => {
             editorModeSwitcher={editorModeSwitcher}
             handleTypeSelect={handleNavigationSelect}
             chosenNav={chosenNavigator}
-            templateIndex={props.location.state.index}
+            templateIndex={location.state.index}
         />
         {template
             ? <ScreensList template={template} editorModeSwitcher={editorModeSwitcher} chosenNavigator={chosenNavigator}
-                           templateIndex={props.location.state.index}/>
+                           templateIndex={location.state.index}/>
             : null
         }
-        <Link to={{
-            pathname: '/viewer',
-            state: {
-                template: template
-            }
-        }}>
+        <Link to={{pathname: '/main/viewer',}}
+              state={{template: template}}
+        >
             <p>View</p>
         </Link>
     </div>

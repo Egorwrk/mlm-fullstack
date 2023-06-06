@@ -5,12 +5,9 @@ import {Template} from 'types';
 
 const ScreenParser = (template: Template, index: number) => {
     return (
-        <Link to={{
-            pathname: '/editor',
-            state: {
-                index: index
-            },
-        }}>
+        <Link to={{pathname: '/main/editor'}}
+              state={{index: index}}
+        >
             <p>{template.name}</p>
             <div
                 style={{
