@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 import {axiosApi} from 'api/apiInstance';
 import 'css/AuthorizationPage.css';
 
-const AuthorizationPage = (props: any) => {
+const AuthorizationPage = () => {
+    const navigate = useNavigate();
     const [registrationOrLogin, setRegistrationOrLogin] = useState<boolean>(true)
     const [login, setLogin] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -14,7 +16,7 @@ const AuthorizationPage = (props: any) => {
         if (login && password && email && password === confirmPassword) {
             axiosApi.registration(login, password, email).then((res) => {
                 if (res.data === 'registration completed') {
-                    props.history.push('/templates');
+                    navigate('/main/templates');
                 } else {
                     alert(res.data)
                 }
@@ -28,7 +30,7 @@ const AuthorizationPage = (props: any) => {
         if (login && password) {
             axiosApi.login(login, password).then((res) => {
                 if (res.data === 'auth success') {
-                    props.history.push('/templates');
+                    navigate('/main/templates');
                 } else {
                     alert(res.data)
                 }
