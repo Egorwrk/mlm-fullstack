@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Outlet} from 'react-router-dom';
 
-import NavBar from './NavBar';
+import NavBar from 'components/NavBar';
 
 const Layout = () => {
     const [logToggle, setLogToggle] = useState<boolean>(false);

@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {List, ListItem} from '@mui/material';
 import {useLocation} from 'react-router-dom';
 
-import ScreenContainer from 'components/ScreenContainer';
+import ScreenContainer from 'components/ScreenContainer/ScreenContainer';
+import ModalScreenViewer from 'components/ViewerPageComponents/ModalScreenViewer';
 import {Template} from 'types';
 import 'css/ViewerPage.css';
 
@@ -15,7 +16,7 @@ const ViewerPage = () => {
         setTemplate(location.state.template)
     })
 
-    const navBtnPress = (screenName: string) => {
+    const navigatorBtnPressed = (screenName: string) => {
         let screenIndex = null
         if (template) {
             for (let i = 0; i < template.screens.length; i++) {
@@ -30,43 +31,7 @@ const ViewerPage = () => {
     return (
         <div className='viewerPageContainer'>
             {template && (chosenScreen || chosenScreen === 0)
-                ? <div className='modalScreenViewer'>
-                    <span className='topPanel'>
-                        <button
-                            className='exitBtn'
-                            onClick={() => setChosenScreen(null)}
-                        >exit</button>
-                    </span>
-
-                    <div className='ViewerScreenContainer'>
-                        <button
-                            className='btnsPrevNextScreen'
-                            onClick={() => {
-                                if (chosenScreen === 0) {
-                                    setChosenScreen(template.screens.length - 1)
-                                } else {
-                                    setChosenScreen(chosenScreen - 1)
-                                }
-                            }}
-                        >
-                            <p>prev</p>
-                        </button>
-                        <ScreenContainer template={template} screenContent={template.screens[chosenScreen]}
-                                         editorModeSwitcher={null} chosenNavigator={null} navigatorBtnPress={navBtnPress}/>
-                        <button
-                            className='btnsPrevNextScreen'
-                            onClick={() => {
-                                if (chosenScreen === template?.screens.length - 1) {
-                                    setChosenScreen(0)
-                                } else {
-                                    setChosenScreen(chosenScreen + 1)
-                                }
-                            }}
-                        >
-                            {'next'}
-                        </button>
-                    </div>
-                </div>
+                ? <ModalScreenViewer setChosenScreen={setChosenScreen} chosenScreen={chosenScreen} template={template} navigatorBtnPressed={navigatorBtnPressed}/>
                 : null
             }
 

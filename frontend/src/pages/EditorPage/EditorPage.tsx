@@ -48,7 +48,7 @@ const EditorPage = () => {
         <Link to={{pathname: '/main/viewer',}}
               state={{template: template}}
         >
-            <p>View</p>
+            View
         </Link>
     </div>
 };

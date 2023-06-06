@@ -29,25 +29,11 @@ const CreateNewTemplateModal = (props: Props) => {
     }
 
     const changeTemplateName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setNewTemplate({
-                ...newTemplate,
-                name: event.target.value
-            }
-        )
+        setNewTemplate({...newTemplate, name: event.target.value})
     }
 
     const changeScreenChosenStatusName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setNewTemplate(
-            {
-                ...newTemplate,
-                screens: [
-                    {
-                        ...newTemplate.screens[0],
-                        name: event.target.value
-                    }
-                ]
-            }
-        )
+        setNewTemplate({...newTemplate, screens: [{...newTemplate.screens[0], name: event.target.value}]})
     }
 
     return (
@@ -76,8 +62,7 @@ const CreateNewTemplateModal = (props: Props) => {
                     <button
                         className='templateModalSaveBtn'
                         onClick={() => saveTemplate()}
-                    >save
-                    </button>
+                    >save</button>
                 </div>
             </div>
         </div>

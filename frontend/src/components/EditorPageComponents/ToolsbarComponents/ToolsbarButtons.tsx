@@ -1,7 +1,7 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
 
-import {addEmptyBlock} from 'store/templatesSlice';
+import ChangeModeButton from 'components/EditorPageComponents/ToolsbarComponents/ChangeModeButton';
+import AddEmptyBlockButton from 'components/EditorPageComponents/ToolsbarComponents/AddEmptyBlockButton';
 import {EditorModeSwitcherType} from 'types';
 import 'css/EditorPage.css'
 
@@ -11,35 +11,14 @@ interface Props {
 }
 
 const ToolsbarButtons = (props: Props) => {
-    const dispatch = useDispatch()
 
     return (
-        <body className='toolsbarButtonsContainer'>
-            <span className='toolsbarItem'>
-                <button className='toolsbarItemBtn' onClick={() => props.setEditorModeSwitcher('navigator')}>
-                    N
-                </button>
-            </span>
-            <span className='toolsbarItem'>
-                <button className='toolsbarItemBtn' onClick={() => props.setEditorModeSwitcher('newScreen')}>
-                    NS
-                </button>
-            </span>
-            <span className='toolsbarItem'>
-                <button className='toolsbarItemBtn' onClick={() => props.setEditorModeSwitcher('multisetMode')}>
-                    CS
-                </button>
-            </span>
-            <span className='toolsbarItem'>
-                <button className='toolsbarItemBtn' onClick={() => dispatch(addEmptyBlock(props.templateIndex))}>
-                    NB
-                </button>
-            </span>
-            <span className='toolsbarItem'/>
-            <span className='toolsbarItem'/>
-            <span className='toolsbarItem'/>
-            <span className='toolsbarItem'/>
-        </body>
+        <div className='toolsbarButtonsContainer'>
+            <ChangeModeButton setEditorModeSwitcher={props.setEditorModeSwitcher} text={'N'} chosenMode={'navigator'}/>
+            <ChangeModeButton setEditorModeSwitcher={props.setEditorModeSwitcher} text={'NS'} chosenMode={'newScreen'}/>
+            <ChangeModeButton setEditorModeSwitcher={props.setEditorModeSwitcher} text={'CS'} chosenMode={'multisetMode'}/>
+            <AddEmptyBlockButton templateIndex={props.templateIndex}/>
+        </div>
     );
 };
 

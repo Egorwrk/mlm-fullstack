@@ -2,7 +2,8 @@ import React from 'react';
 import {Grid} from '@mui/material';
 import {useDispatch} from 'react-redux';
 
-import ScreenContainer from 'components/ScreenContainer';
+import ScreenContainer from 'components/ScreenContainer/ScreenContainer';
+import {navigatorUpdater, screenUpdater} from 'utils/ScreenListUtils';
 import {changeGeneralNavigation, changeScreenChosenStatus} from 'store/templatesSlice';
 import {EditorModeSwitcherType, MyScreen, Template} from 'types';
 
@@ -23,75 +24,20 @@ const ScreensList = (props: Props) => {
     }
 
     const navigatorEditor = (tmpNavigatorsList: string[] | null, name: string) => {
-        let updatedNavigator = tmpNavigatorsList ? [...tmpNavigatorsList] : null
-        if (updatedNavigator) {
-            if (updatedNavigator.length === (filterNavigatorList(updatedNavigator, name)).length) {
-                if (props.chosenNavigator === 'bottomTabs' && updatedNavigator.length >= 5) {
-                    alert('You already have 5 screens')
-                } else {
-                    updatedNavigator.push(name)
-                }
-            } else {
-                if (filterNavigatorList(updatedNavigator, name).length === 0) {
-                    updatedNavigator = null
-                } else {
-                    updatedNavigator = filterNavigatorList(updatedNavigator, name)
-                }
-            }
-
-        } else {
-            updatedNavigator = [name]
-        }
+        const updatedNavigator = navigatorUpdater(
+            props.chosenNavigator === 'bottomTabs'
+                ? props.template.navigator.bottomTabs
+                : props.template.navigator.drawer,
+            name,
+            props.chosenNavigator)
         dispatch(changeGeneralNavigation({
             templateIndex: props.templateIndex,
             navigator: {
                 bottomTabs: props.chosenNavigator === 'bottomTabs' ? updatedNavigator : props.template.navigator.bottomTabs,
                 drawer: props.chosenNavigator === 'bottomTabs' ? props.template.navigator.drawer : updatedNavigator,
             },
-            screens: screenUpdate(updatedNavigator, name)
+            screens: screenUpdater(updatedNavigator, name, props.template, props.chosenNavigator)
         }))
-    }
-
-    const filterNavigatorList = (navigatorList: string[], name: string) => {
-        return navigatorList.filter((el) => {
-            return el !== name
-        })
-    }
-
-    const screenUpdate = (updatedNavigator: string[] | null, name: string) => {
-        return props.template.screens.map((screen): MyScreen => {
-            if (screen.name === name && updatedNavigator && updatedNavigator.length > 0) {
-                for (let i = 0; i < updatedNavigator.length; i++) {
-                    if (updatedNavigator[i] === name) {
-                        return {
-                            ...screen,
-                            navigator: {
-                                bottomTabs: props.chosenNavigator === 'bottomTabs' ? updatedNavigator : screen.navigator.bottomTabs,
-                                drawer: props.chosenNavigator === 'bottomTabs' ? screen.navigator.drawer : updatedNavigator
-                            }
-                        }
-                    }
-                }
-                return {
-                    ...screen,
-                    navigator: {
-                        bottomTabs: props.chosenNavigator === 'bottomTabs' ? null : screen.navigator.bottomTabs,
-                        drawer: props.chosenNavigator === 'bottomTabs' ? screen.navigator.drawer : null
-                    }
-                }
-            }
-            if ((props.chosenNavigator === 'bottomTabs' && screen.navigator.bottomTabs) || (props.chosenNavigator === 'drawer' && screen.navigator.drawer) || screen.name === name) {
-                return {
-                    ...screen,
-                    navigator: {
-                        bottomTabs: props.chosenNavigator === 'bottomTabs' ? updatedNavigator : screen.navigator.bottomTabs,
-                        drawer: props.chosenNavigator === 'bottomTabs' ? screen.navigator.drawer : updatedNavigator
-                    }
-                }
-            } else {
-                return screen
-            }
-        })
     }
 
     const choseThisScreen = (screen: MyScreen, screenIndex: number) => {

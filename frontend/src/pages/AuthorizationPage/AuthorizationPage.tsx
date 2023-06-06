@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import {axiosApi} from 'api/apiInstance';
+import InputField from 'components/AuthorizationPageComponents/InputField';
 import 'css/AuthorizationPage.css';
 
 const AuthorizationPage = () => {
@@ -41,27 +42,14 @@ const AuthorizationPage = () => {
     return (
         <div className='authPageContainer'>
             <div className='formContainer'>
-                <input className='inputField'
-                       placeholder='Login'
-                       value={login}
-                       onChange={(event) => setLogin(event.target.value)}
-                />
-                <input className='inputField'
-                       placeholder='Password'
-                       value={password}
-                       onChange={(event) => setPassword(event.target.value)}
-                />
+                <InputField placeholderText={'login'} valueText={login} setter={setLogin}/>
+                <InputField placeholderText={'Password'} valueText={password} setter={setPassword}/>
                 {registrationOrLogin
-                    ? <input className='inputField'
-                             placeholder='Confirm password'
-                             value={confirmPassword}
-                             onChange={(event) => setConfirmPassword(event.target.value)}
-                    />
+                    ? <InputField placeholderText={'Confirm password'} valueText={confirmPassword} setter={setConfirmPassword}/>
                     : null
                 }
                 {registrationOrLogin
-                    ? <input className='inputField' placeholder='Email' value={email}
-                             onChange={(event) => setEmail(event.target.value)}/>
+                    ? <InputField placeholderText={'Email'} valueText={email} setter={setEmail}/>
                     : null
                 }
                 <span className='separator'/>
