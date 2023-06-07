@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 
 import DrawerMenuComponent from 'components/ScreenContainer/Components/DrawerMenuComponent';
-import EmptyBlocks from 'components/ScreenContainer/Components/EmptyBlocks';
 import BottomTabsContainerComponent from 'components/ScreenContainer/Components/BottomTabsContainerComponent';
 import ScreenTopBarComponent from 'components/ScreenContainer/Components/ScreenTopBarComponent';
 import {EditorModeSwitcherType, MyScreen, Template} from 'types';
@@ -19,7 +18,7 @@ const ScreenContainer = (props: Props) => {
     const [drawerNavigatorMenuShow, setDrawerNavigatorMenuShow] = useState<boolean>(false)
 
     return (
-        <body className='screenContainer'>
+        <div className='screenContainer'>
             {props.screenContent.name}
             <div style={{
                 display: 'flex',
@@ -33,15 +32,11 @@ const ScreenContainer = (props: Props) => {
                         editorModeSwitcher={props.editorModeSwitcher}
                         drawerNavigatorMenuShow={drawerNavigatorMenuShow}
                         setDrawerNavigatorMenuShow={setDrawerNavigatorMenuShow}/>
-                    <div className='screenContentWrapper'>
-                        {drawerNavigatorMenuShow
-                            ? <DrawerMenuComponent
-                                screenContent={props.screenContent}
-                                navigatorBtnPressed={props.navigatorBtnPressed}/>
-                            : null
-                        }
-                        <EmptyBlocks screenContent={props.screenContent}/>
-                    </div>
+                    <DrawerMenuComponent
+                        screenContent={props.screenContent}
+                        navigatorBtnPressed={props.navigatorBtnPressed}
+                        drawerNavigatorMenuShow={drawerNavigatorMenuShow}
+                    />
                 </div>
 
                 {props.screenContent && props.screenContent.navigator.bottomTabs
@@ -52,7 +47,7 @@ const ScreenContainer = (props: Props) => {
                     : null
                 }
             </div>
-        </body>
+        </div>
     )
 }
 
