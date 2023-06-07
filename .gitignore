@@ -17,3 +17,4 @@
 /backend/nginx
 /backend/Dockerfile
 /backend/Makefile
+/backend/config/permissionConfig.ini

@@ -1,5 +1,7 @@
 <?php
-header('Access-Control-Allow-Origin: http://45.12.238.141:3000');
+$config = parse_ini_file("../config/permissionConfig.ini");
+
+header("Access-Control-Allow-Origin: {$config['permittedUrl']}");
 header('Access-Control-Allow-Credentials: true');
 include "../bootstrap/Autoloader.php";
 
