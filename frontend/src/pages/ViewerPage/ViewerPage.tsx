@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {List, ListItem} from '@mui/material';
+import {List, ListItemButton} from '@mui/material';
 import {useLocation} from 'react-router-dom';
 
 import ScreenContainer from 'components/ScreenContainer/ScreenContainer';
@@ -39,7 +39,7 @@ const ViewerPage = () => {
                 {template
                     ? template.screens.map((screen, index) => {
                         return (
-                            <ListItem key={screen.name} button={true} onClick={() => {
+                            <ListItemButton key={screen.name} onClick={() => {
                                 setChosenScreen(index)
                             }}>
                                 <ScreenContainer
@@ -48,7 +48,7 @@ const ViewerPage = () => {
                                     editorModeSwitcher={null}
                                     chosenNavigator={null}
                                 />
-                            </ListItem>
+                            </ListItemButton>
                         )
                     })
                     : null
