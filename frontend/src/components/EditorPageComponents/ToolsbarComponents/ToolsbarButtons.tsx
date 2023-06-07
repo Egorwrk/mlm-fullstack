@@ -17,7 +17,7 @@ const ToolsbarButtons = (props: Props) => {
             <ChangeModeButton setEditorModeSwitcher={props.setEditorModeSwitcher} text={'N'} chosenMode={'navigator'}/>
             <ChangeModeButton setEditorModeSwitcher={props.setEditorModeSwitcher} text={'NS'} chosenMode={'newScreen'}/>
             <ChangeModeButton setEditorModeSwitcher={props.setEditorModeSwitcher} text={'CS'} chosenMode={'multisetMode'}/>
-            <AddEmptyBlockButton templateIndex={props.templateIndex}/>
+            <AddEmptyBlockButton setEditorModeSwitcher={props.setEditorModeSwitcher} templateIndex={props.templateIndex}/>
         </div>
     );
 };
