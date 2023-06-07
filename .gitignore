@@ -14,3 +14,6 @@
 /backend/.idea
 /backend/deployConfig.json
 /backend/.DS_Store
+/backend/nginx
+/backend/Dockerfile
+/backend/Makefile
