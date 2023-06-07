@@ -44,16 +44,13 @@ const Toolsbar = (props: Props) => {
                 alert('screen with this name already exist')
             }
         }
-        if (props.editorModeSwitcher === 'navigator') {
-            props.setEditorModeSwitcher(null)
-        }
-        if (props.editorModeSwitcher === 'multisetMode') {
+        if (props.editorModeSwitcher === 'navigator' || props.editorModeSwitcher === 'multisetMode') {
             props.setEditorModeSwitcher(null)
         }
     }
 
     return (
-        <body className='toolsbar'>
+        <div className='toolsbar'>
             <ToolsbarButtons setEditorModeSwitcher={props.setEditorModeSwitcher} templateIndex={props.templateIndex} />
 
             <ToolsbarSelectors
@@ -72,8 +69,8 @@ const Toolsbar = (props: Props) => {
                     onClick={() => okButtonPressed()}>Ok</button>
                 : null
             }
-        </body>
-    );
-};
+        </div>
+    )
+}
 
-export default Toolsbar;
+export default Toolsbar

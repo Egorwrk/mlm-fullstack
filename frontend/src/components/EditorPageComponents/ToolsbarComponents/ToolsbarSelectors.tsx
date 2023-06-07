@@ -13,7 +13,7 @@ interface Props {
 
 const ToolsbarSelectors = (props: Props) => {
     return (
-        <body className='toolsbarSelectorsContainer'>
+        <div className='toolsbarSelectorsContainer'>
             {props.editorModeSwitcher === 'navigator'
                 ? <div className='select'>
                     <Select onChange={props.handleTypeSelect} value={props.chosenNav} style={{height: 30}}>
@@ -28,8 +28,7 @@ const ToolsbarSelectors = (props: Props) => {
                 ? <input value={props.screenName} onChange={(event) => props.setScreenName(event.target.value)}></input>
                 : null
             }
-
-        </body>
+        </div>
     );
 };
 
