@@ -1,0 +1,5 @@
+{
+  "deployConfig": {
+    "baseUrl": "http://45.12.238.141:3000"
+  }
+}

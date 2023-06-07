@@ -9,6 +9,8 @@ class Router
 {
     public function rout()
     {
+        $config = parse_ini_file("../config/config.ini");
+        $dbConnect = new Controllers\DBConnect($config['dbhost'], $config['dbuser'], $config['dbpass'], $config['dbname']);
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
             {
@@ -16,7 +18,7 @@ class Router
                     case '/templates':
                     {
                         if (isset($_COOKIE['login'])) {
-                            $conn = Controllers\DBConnect::connect();
+                            $conn = $dbConnect::connect();
                             $log = new Controllers\ReturnTemplates($conn);
                             $log->returnTemplates();
                         } else {
@@ -32,7 +34,7 @@ class Router
                     case 'login':
                     {
                         if (isset($_POST['login']) && isset($_POST['password'])) {
-                            $conn = Controllers\DBConnect::connect();
+                            $conn = $dbConnect::connect();
                             $log = new Controllers\Login($conn);
                             $log->login();
                         }
@@ -41,7 +43,7 @@ class Router
                     case 'registration':
                     {
                         if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email'])) {
-                            $conn = Controllers\DBConnect::connect();
+                            $conn = $dbConnect::connect();
                             $reg = new Controllers\Registration($conn);
                             $reg->registration();
                         }
@@ -50,7 +52,7 @@ class Router
                     case 'templatesSaving':
                     {
                         if (isset($_COOKIE["login"]) && isset($_POST['templates'])) {
-                            $conn = Controllers\DBConnect::connect();
+                            $conn = $dbConnect::connect();
                             $layoutsSave = new Controllers\TemplatesSaving($conn);
                             $layoutsSave->templatesSaving();
                         }
