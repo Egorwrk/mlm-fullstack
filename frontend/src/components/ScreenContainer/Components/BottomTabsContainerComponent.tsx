@@ -27,7 +27,7 @@ const BottomTabsContainerComponent = (props: Props) => {
                     })}
                 </div>
                 : null
-            };
+            }
         </>
     )
 };
